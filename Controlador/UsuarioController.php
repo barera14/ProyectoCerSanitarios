@@ -177,7 +177,6 @@ class UsuarioController
         }
     }
     static public function Login (){
-
         try {
             $Usuario = $_POST['cedula_user'];
             $Contrasena = $_POST['pass_admin'];
@@ -185,29 +184,10 @@ class UsuarioController
             if(!empty($Usuario) && !empty($Contrasena)){
                 $respuesta = UsuarioController::validLogin($Usuario, $Contrasena);
                 if (is_array($respuesta)) {
-
-                    $_SESSION['verificar']=true;
-                    $_SESSION['DataPersona'] = $respuesta;
-
-                    $id =  $_SESSION['DataPersona']['Id'];
-                    $arrayF= FormularioSolicitud::buscar("SELECT * FROM datosformulario WHERE Cliente ='$id'");
-                    $arrays = Solcitudes::buscar("SELECT * FROM solicitud WHERE Idcliente ='$id'");
-                    $idValidacion = "";
-                    $idValidacionF="";
-                    foreach ($arrayF as $valor) {
-
-                        $idValidacionF = $valor->getIdFormulario();
-                    }
-                    foreach ($arrays as $valor) {
-                        $idValidacion = $valor->getId();
-                    }
-
-                    if ($idValidacion != null && $idValidacionF != null) {
-                        $_SESSION['validacion'] = false;
-                    }  else {
-                        $_SESSION['validacion'] = true;
-                    }
-                    echo TRUE;
+                 $_SESSION['verificar']=true;
+                 $_SESSION['DataPersona'] = $respuesta;
+                 $_SESSION['validacion']=false;
+                 echo TRUE;
                 }else if($respuesta == "Password Incorrecto"){
                     echo '<script>
                         alert("Contraseña incorrecta");
@@ -223,7 +203,7 @@ class UsuarioController
                               </script>';;
             }
         } catch (Exception $e) {
-            echo '<script>c
+            echo '<script>
                         alert("Error!'.+$e->getMessage().'");
                               </script>';
         }

@@ -1,7 +1,7 @@
 <?php session_start();
 error_reporting(0);
 require "../Controlador/UsuarioController.php";
-if( $_SESSION['validacion']==true){
+if( $_SESSION['validacion']==false){
 
 }else{
     header("Location: InformacionEstadoSolicitud.php");

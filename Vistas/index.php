@@ -136,7 +136,7 @@ error_reporting(0);
         <div id="login">
             <h1>Servicios en linea</h1>
 
-            <form  method="post" id="frmLogin"  >
+            <form  method="post" id="frmLogin">
 
                 <div class="field-wrap">
                     <label>
@@ -150,7 +150,7 @@ error_reporting(0);
                     </label>
                     <input type="password" name="pass_admin" required autocomplete="off"/>
                 </div>
-                <div id="results">
+                <div id="results" hidden>
 
                 </div>
 
@@ -170,8 +170,6 @@ error_reporting(0);
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-
-
 <script  src="js/index.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -182,21 +180,19 @@ error_reporting(0);
                     type        : 'POST', // Metodo de Envio
                     url         : '../Controlador/UsuarioController.php?action=Login', // Ruta del envio
                     data        : formData, // our data object
-
                     encode      : true
                 })
                     .done(function(data) {
-                        //console.log(data);
-                        if (data == true){
+                        if (data.indexOf('1') != -1){
                             window.location.href = "Formulario.php";
-                           // alert("ghjghjg"+data);
-                        }else{
+                           
+                              }else{
                             $('#results').html(data);
                         }
                     });
                 event.preventDefault();
             }
-        })
+        });
     });
 </script>
 
