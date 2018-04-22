@@ -1,0 +1,114 @@
+<head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="css/inicio.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Demo</title>
+</head>
+
+<body>
+
+ 
+<button onClick="document.getElementById('id01').style.display='block'" style="width:auto;"><img src="images/usuario.png"></button>
+
+
+
+
+
+<div id="id01" class="modal1">
+
+  
+
+           <span onClick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">&times;</span>
+
+
+        <div id="Contenedor_11">
+            <h1 id="h1_1">Serviciós en linea</h1>
+
+            <div id="object_1">
+            <center><table class="customerss">
+                <h4>Datos Personales</h4>
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nombres</th>
+                    <th>Cedula</th>
+                    <th>Ciudad de Expedicion</th>
+                   
+                    
+                </tr>
+                </thead>
+                <tbody>
+                <?php echo UsuarioController::tablaPersona(); ?>
+                </tbody>
+             
+            </table><center>
+            <br>
+            </div>
+
+            
+         <div id="object_2">
+         
+          <center> <table class="customerss">
+                 <h4>Informacion del establecimiento</h4>
+                <thead>
+              
+                <tr>
+                    <th>Nit</th>
+                    <th>Razon Social</th>
+                    <th>Direccion</th>
+                    <th>Barrio</th>
+                    <th>Vereda</th>
+                    <th>Comuna</th>
+                    <th>Corregimiento</th>
+                    <th>Telefono</th>
+                    <th>Regimen</th>
+                    <th>Actividad Economica</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php echo UsuarioController::tablaPersona(); ?>
+                </tbody>
+             
+           </table></center>
+           <br>   
+         </div>
+         
+          <div id="object_3">
+         
+          <center> <table class="customerss">
+                 <h4>Archivos Adjuntos (PDF,JPG o PGJ)</h4>
+                <thead>
+              
+                <tr>
+                    <th>Cédula de Ciudadanía </th>
+                    <th>Certificado de Matricula Mercantil </th>
+                    <th>Conepto de Uso de Suelo </th>
+                    <th>Formato de Rut</th>
+                  
+                </tr>
+                </thead>
+                <tbody>
+                <?php echo UsuarioController::tablaPersona(); ?>
+                </tbody>
+             
+           </table></center>
+
+         </div>
+    
+         </div>
+
+</div>    
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
+</body>
+</html>

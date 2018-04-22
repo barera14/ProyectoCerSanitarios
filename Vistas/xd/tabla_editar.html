@@ -1,0 +1,140 @@
+<?php
+require "../Controlador/UsuarioController.php";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from hencework.com/theme/flintstone/full-width-light/foo-table.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Nov 2017 05:19:30 GMT -->
+<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Editar usuarios</title>
+		<meta name="description" content="Flintstone is a Dashboard & Admin Site Responsive Template by hencework." />
+
+		<link href="vendors/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" type="text/css"/>
+
+		<!-- Footable CSS -->
+		<link href="vendors/bower_components/FooTable/compiled/footable.bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<!-- Custom CSS -->
+		<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+
+			<div class="row">
+						<div class="col-sm-12">
+							<div class="panel panel-default card-view">
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark">Editar datos de clientes</h6>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body">
+										<h4>Informacion del establecimiento</h4>
+										<div class="table-wrap">
+										 <div id="object_2">
+											<table id="footable_2" class="table">
+												<thead>
+												<tr>
+															<th>Nit</th>
+															<th>Razon Social</th>
+															<th>Direccion</th>
+															<th>Barrio</th>
+															<th>Vereda</th>
+															<th>Comuna</th>
+															<th>Corregimiento</th>
+															<th>Telefono</th>
+															<th>Regimen</th>
+															<th>Actividad Economica</th>
+												</tr>
+												</thead>
+
+												<tbody>
+												<?php echo UsuarioController::tablaPersona(); ?>
+												</tbody>
+
+													</table>
+
+											<!--Editor-->
+											<div class="modal fade" id="editor-modal" tabindex="-1" role="dialog" aria-labelledby="editor-title">
+
+											<div class="modal-dialog" role="document">
+												<form class="modal-content form-horizontal" id="editor">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+														<h5 class="modal-title" id="editor-title">Add Row</h5>
+													</div>
+													<div class="modal-body">
+														<input type="number" id="id" name="id" class="hidden"/>
+														<div class="form-group required">
+															<label for="firstName" class="col-sm-3 control-label">First Name</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+															</div>
+														</div>
+														<div class="form-group required">
+															<label for="lastName" class="col-sm-3 control-label">Last Name</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="jobTitle" class="col-sm-3 control-label">Job Title</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="Job Title">
+															</div>
+														</div>
+														<div class="form-group required">
+															<label for="startedOn" class="col-sm-3 control-label">Started On</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="startedOn" name="startedOn" placeholder="Started On" required>
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="dob" class="col-sm-3 control-label">Date of Birth</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="dob" name="dob" placeholder="Date of Birth">
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="submit" class="btn btn-primary">Save changes</button>
+														<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+													</div>
+												</form>
+											</div>
+										</div>
+										<!--/Editor-->
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Row -->
+
+
+		<!-- /#wrapper -->
+
+		<!-- JavaScript -->
+
+		<!-- jQuery -->
+		<script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+		<!-- Data table JavaScript -->
+		<script src="vendors/bower_components/moment/min/moment.min.js"></script>
+		<script src="vendors/bower_components/FooTable/compiled/footable.min.js" type="text/javascript"></script>
+		<script src="dist/js/footable-data.js"></script>
+
+		<!-- Slimscroll JavaScript -->
+
+
+	</body>
+
+<!-- Mirrored from hencework.com/theme/flintstone/full-width-light/foo-table.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 02 Nov 2017 05:19:31 GMT -->
+</html>
