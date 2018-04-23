@@ -3,7 +3,7 @@ error_reporting(0);
 require "../Controlador/UsuarioController.php";
 
 if( $_SESSION['validacion']==false){
-var_dump($_SESSION['DataPersona']);
+
 }else{
     header("Location: InformacionEstadoSolicitud.php");
 }

@@ -31,29 +31,29 @@ error_reporting(0);
     <font color="Olive" face=",arialComic Sans MS">
         <h1><center><font color="white">Certificado Sanitario Yopal</font></center></h1>
     </font></div>
-<?php if(!empty($_GET['respuesta'])){ ?>
+
     <?php if ($_GET['respuesta'] == "correcto"){ ?>
         <script>
             alert("Registro Exitoso, Por favor inicie sesion");
-            location.href="index.php";
+           
         </script>
     <?php }else if($_GET['respuesta']=='errorUser') { ?>
         <script>
             alert("Error usuario!!");
-            location.href="index.php";
+         
         </script>
     <?php } else if($_GET['respuesta']=='errorSesion') { ?>
     <script>
         alert("Error por favor inicia sesion");
-        location.href="index.php";
+       
     </script>
 <?php } else if($_GET['respuesta']=='error'){?>
         <script>
             alert("Error al crear el usuario");
-            location.href="index.php";
+         
         </script>
-        <?php }?>
-<?php } ?>
+ <?php }?>
+
 <div class="form">
 
     <ul class="tab-group">
@@ -67,7 +67,7 @@ error_reporting(0);
 
             <h1>Seriviciós en Línea</h1>
 
-            <form action="../Controlador/UsuarioController.php?action=crear" name="formulario" method="post">
+            <form action="../Controlador/UsuarioController.php?action=crear2" name="formulario" method="post">
 
 
                 <div class="top-row">

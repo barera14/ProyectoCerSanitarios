@@ -47,7 +47,7 @@ class UsuarioController
             $md5 = md5($Contrasenamd5);
             $arrayusuario['Contrasena']=$md5;
             $Usuarios = new Usuario($arrayusuario);
-            $Usuarios->insertar();
+            $Usuarios->insertar2();
           
             $_SESSION['validacion'] = false;
             header("Location: ../Vistas/Formulario.php?respuesta=correcto");
@@ -70,9 +70,9 @@ class UsuarioController
             $arrayusuario['Contrasena']=$md5;
             $Usuarios = new cliente($arrayusuario);
             $Usuarios->insertar();
-            header("Location: ../Vistas/RegistroFuncionario.php?respuesta=correcto");
+            header("Location: ../Vistas/index.php?respuesta=correcto");
         }catch (Exception $w){
-            header("Location: ../Vistas/RegistroFuncionario.php?respuesta=error");
+            header("Location: ../Vistas/index.php?respuesta=error");
 
         }
     }

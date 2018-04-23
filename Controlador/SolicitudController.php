@@ -53,7 +53,7 @@ class SolicitudController
             $arrayusuario['Actividad_Economica']= $_POST['actividad'];
             $arrayusuario['Estaado']= 'Solicitada';
             $arrayusuario['Cliente']= $_POST['id'];
-            var_dump($arrayusuario);
+       
             $Solicitudes = new FormularioSolicitud($arrayusuario);
             $Solicitudes->insertar();
             var_dump($Solicitudes);
@@ -70,7 +70,7 @@ class SolicitudController
 
         }catch (Exception $w){
             echo $w;
-          // header("Location: ../Vistas/Formulario.php?respuesta=error");
+           header("Location: ../Vistas/Formulario.php?respuesta=error");
 
         }
     }
