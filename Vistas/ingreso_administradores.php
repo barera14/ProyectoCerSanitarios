@@ -28,7 +28,7 @@
         <div id="login">   
           <h1>Acceso de Funcionarios</h1>
           
-          <form action="login_administradores.php" method="post">
+          <form  method="post" id="frmLogin">
           
             <div class="field-wrap">
             <label>
@@ -54,12 +54,33 @@
       </div><!-- tab-content -->
       
 </div> <!-- /form -->
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-  
-
-    <script  src="js/index.js"></script>
-
+<script  src="js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#frmLogin').on('submit', function (e) {
+            if (!e.isDefaultPrevented()) {
+                var formData = $(this).serialize(); //Serializamos los campos del formulario
+                $.ajax({
+                    type        : 'POST', // Metodo de Envio
+                    url         : '../Controlador/UsuarioController.php?action=LoginAdmin', // Ruta del envio
+                    data        : formData, // our data object
+                    encode      : true
+                })
+                    .done(function(data) {
+                        if (data.indexOf('1') != -1){
+                            window.location.href = "RegistroFuncionario.php";
+                           
+                              }else{
+                            $('#results').html(data);
+                        }
+                    });
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 
 
 

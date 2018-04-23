@@ -19,12 +19,60 @@ require "../Controlador/UsuarioController.php";
 
 
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dropbtn {
+            background-color: #179b77;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
 
+        .dropbtn:hover, .dropbtn:focus {
+           /*background-color: #2980B9;
+       */ }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: -250px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown a:hover {background-color: #ddd}
+
+        .show {display:block;}
+    </style>
 
 </head>
 
 <body>
 <br>
+<div class="dropdown">
+    <?php echo "<button onclick='myFunction()' class='dropbtn'>".($_SESSION['DataPersona']['Nombre'])." ".($_SESSION['DataPersona']['Apellido'])."</button>"; ?>
+    <div id='myDropdown' class='dropdown-content'>
+     <a href='#home'>Actualizar datos</a>
+    <a href='../Controlador/UsuarioController.php?action=CerrarSession'>Cerrar Sesion</a>
+    </div>
+
+</div>
 <div style="margin-left: 450px;">
 <div id="cabeza">
     <font color="Olive" face=",arialComic Sans MS">
@@ -69,7 +117,7 @@ require "../Controlador/UsuarioController.php";
 
             <h1>Registrar Funcionarios</h1>
 
-            <form action="../Controlador/UsuarioController.php?action=crear2" name="formulario" method="post">
+            <form action="../Controlador/UsuarioController.php?action=crear" name="formulario" method="post">
 
                 <div class="top-row">
                     <div class="field-wrap">
@@ -229,39 +277,33 @@ require "../Controlador/UsuarioController.php";
 
     <----------------------------------------------------->
 
+<script>
+    /* When the user clicks on the button,
+     toggle between hiding and showing the dropdown content */
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
 
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 
 <script  src="js/index.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#frmLogin').on('submit', function (e) {
-            if (!e.isDefaultPrevented()) {
-                var formData = $(this).serialize(); //Serializamos los campos del formulario
-                $.ajax({
-                    type        : 'POST', // Metodo de Envio
-                    url         : '../Controlador/UsuarioController.php?action=Login', // Ruta del envio
-                    data        : formData, // our data object
-
-                    encode      : true
-                })
-                    .done(function(data) {
-                        //console.log(data);
-                        if (data == true){
-                            window.location.href = "Formulario.php";
-                        }else{
-                            $('#results').html(data);
-                        }
-                    });
-                event.preventDefault();
-            }
-        })
-    });
-</script>
-
-
 
 </body>
 

@@ -237,7 +237,7 @@ if( $_SESSION['validacion']==false){
                     </label>
                 </div>
                 <div class="field-wrap">
-                    <input  type="text" id="id" name="id" value="<?=$_SESSION['DataPersona']['Id']?>">
+                    <input hidden type="text" id="id" name="id" value="<?=$_SESSION['DataPersona']['Id']?>">
                 </div>
 
                 <input type="submit" value="Siguiente" id="Enviar" name="siguiente" class="button button-block"/>

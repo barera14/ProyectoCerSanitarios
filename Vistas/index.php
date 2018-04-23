@@ -35,7 +35,7 @@ error_reporting(0);
     <?php if ($_GET['respuesta'] == "correcto"){ ?>
         <script>
             alert("Registro Exitoso, Por favor inicie sesion");
-           
+          
         </script>
     <?php }else if($_GET['respuesta']=='errorUser') { ?>
         <script>
@@ -154,7 +154,7 @@ error_reporting(0);
 
                 </div>
 
-                <p class="forgot"><a href="ingreso_administradores.html">Acceso Funcionario.</a></p>
+                <p class="forgot"><a href="ingreso_administradores.php">Acceso Funcionario.</a></p>
 
                 <input type="submit" value="Ingresar" class="button button-block"/>
 

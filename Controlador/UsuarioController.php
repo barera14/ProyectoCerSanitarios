@@ -24,6 +24,8 @@ class UsuarioController
             UsuarioController::eliminar();
         }else if($action == "CerrarSession"){
             UsuarioController::CerrarSession();
+        }else if($action=="LoginAdmin"){
+            UsuarioController::LoginAdmin();
         }
     }
 
@@ -50,9 +52,9 @@ class UsuarioController
             $Usuarios->insertar2();
           
             $_SESSION['validacion'] = false;
-            header("Location: ../Vistas/Formulario.php?respuesta=correcto");
+            header("Location: ../Vistas/RegistroFuncionario.php?respuesta=correcto");
         }catch (Exception $w){
-            header("Location: ../Vistas/Formulario.php?respuesta=error");
+            header("Location: ../Vistas/RegistroFuncionario.php?respuesta=error");
 
         }
     }
@@ -70,6 +72,7 @@ class UsuarioController
             $arrayusuario['Contrasena']=$md5;
             $Usuarios = new cliente($arrayusuario);
             $Usuarios->insertar();
+           
             header("Location: ../Vistas/index.php?respuesta=correcto");
         }catch (Exception $w){
             header("Location: ../Vistas/index.php?respuesta=error");
@@ -253,5 +256,66 @@ class UsuarioController
         return $arraypersona;
     }
 
+    static public function LoginAdmin (){
+        try {
+            $tmp = new cliente();
+            $Usuario = $_POST['Cc_admin'];
+            $Contrasena = $_POST['pass_admin'];
+            $arrayPersona =array();
+            if(!empty($Usuario) && !empty($Contrasena)){
+                $respuesta = UsuarioController::validLoginAd($Usuario, $Contrasena);
+                if (is_array($respuesta)) {
+                 $_SESSION['verificar']=true;
+                 $_SESSION['DataPersona'] = $respuesta;
+         
+                    echo TRUE;
+                }else if($respuesta == "Password Incorrecto"){
+                    echo '<script>
+                        alert("Contraseña incorrecta");
+                              </script>';
+                }else if($respuesta == "No existe el usuario"){
+                    echo '<script>            
+                        alert("No exite ese usuario");
+                              </script>';
+                }
+            }else{
+                echo '<script>
+                        alert("Campos vacios");
+                              </script>';;
+            }
+        } catch (Exception $e) {
+            echo '<script>
+                        alert("Error!'.+$e->getMessage().'");
+                              </script>';
+        }
+    }
+
+    public function validLoginAd ($Usuario, $Contrasena) {
+
+        $arraypersona = array();
+        $tmp = new cliente();
+        $md5 = md5($Contrasena);
+        $getTempUser = $tmp->getRows("SELECT * FROM funcionario WHERE Cedula = '".$Usuario."'");
+        $getTempUserA = $tmp->getRows("SELECT * FROM administrativos WHERE Cedula = '".$Usuario."'");
+        if(count($getTempUser) >= 1 || count($getTempUserA) >= 1){
+            $getrows = $tmp->getRows("SELECT * FROM funcionario WHERE Cedula = '".$Usuario."' AND Contrasena = '".$md5."'");
+            $getrowsA = $tmp->getRows("SELECT * FROM administrativos WHERE Cedula = '".$Usuario."' AND Contrasena = '".$md5."'");
+            if(count($getrows) >= 1){
+                foreach ($getrows as $valor) {
+                    return $valor;
+                }
+            }else if(count($getrowsA) >= 1){
+                foreach ($getrowsA as $valor) {
+                    return $valor;
+                }
+            }else {
+                return "Password Incorrecto";
+            }
+        }else{
+            return "No existe el usuario";
+        }
+        $tmp->Disconnect();
+        return $arraypersona;
+    }
 }
 ?>
