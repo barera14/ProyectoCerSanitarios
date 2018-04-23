@@ -1,6 +1,7 @@
 <?php
 require_once (__DIR__.'/../Modelo/Solcitudes.php');
 require_once (__DIR__.'/../Modelo/FormularioSolicitud.php');
+require_once (__DIR__.'/../Modelo/cliente.php');
 if(!empty($_GET['action'])){
     SolicitudController::main($_GET['action']);
 }else{
@@ -34,6 +35,7 @@ class SolicitudController
     }
     static public function crearSolicitud(){
         try{
+            $tmp = new cliente();
             $arrayusuario = array();
             $arrayusuario['SolicitudNo'] = 12345;
             $arrayusuario['Nombres'] = $_POST['nombre'];
@@ -51,22 +53,24 @@ class SolicitudController
             $arrayusuario['Actividad_Economica']= $_POST['actividad'];
             $arrayusuario['Estaado']= 'Solicitada';
             $arrayusuario['Cliente']= $_POST['id'];
+            var_dump($arrayusuario);
             $Solicitudes = new FormularioSolicitud($arrayusuario);
             $Solicitudes->insertar();
-
-            $array= Solcitudes::buscarForId($_POST['id']);
-
-            if(is_array($array)){
-
+            var_dump($Solicitudes);
+            
+            $getrows = $tmp->getRows("SELECT * FROM datosformulario inner join solicitud WHERE Cliente='".$id."' and Idcliente='".$id."'");
+            var_dump($getrows);
+             if(count($getrows) >= 1){
+                $_SESSION['validacion']=true;
                 header("Location: ../Vistas/InformacionEstadoSolicitud.php");
-            }else{
+             }else{
+                $_SESSION['validacion']=false;
                 header("Location: ../Vistas/Formulario.php?respuesta=correcto");
-
-            }
+             }
 
         }catch (Exception $w){
-
-           header("Location: ../Vistas/Formulario.php?respuesta=error");
+            echo $w;
+          // header("Location: ../Vistas/Formulario.php?respuesta=error");
 
         }
     }
@@ -83,6 +87,7 @@ class SolicitudController
     static public function crear(){
         try{
             $arraySolicitud = array();
+            $tmp = new cliente();
             $cedula= $_POST['cedula'];
             $id=$_POST['id'];
             if (is_uploaded_file($_FILES['Archivo_recibo']['tmp_name'])&& is_uploaded_file($_FILES['Archivo_carnet']['tmp_name'])&& is_uploaded_file($_FILES['Archivo_poliza']['tmp_name'])&& is_uploaded_file($_FILES['Archivo_fotos']['tmp_name']))
@@ -114,8 +119,17 @@ class SolicitudController
             $arraySolicitud['Idcliente']= $id;
             $Usuarios = new Solcitudes($arraySolicitud);
             $Usuarios->insertar();
-
-            header("Location: ../Vistas/Formulario.php?respuesta=correcto");
+         
+           
+             $getrows = $tmp->getRows("SELECT * FROM datosformulario inner join solicitud WHERE Cliente='".$id."' and Idcliente='".$id."'");
+                var_dump($getrows);
+                 if(count($getrows) >= 1){
+                    $_SESSION['validacion']=true;
+                    header("Location: ../Vistas/InformacionEstadoSolicitud.php");
+                 }else{
+                    $_SESSION['validacion']=false;
+                    header("Location: ../Vistas/Formulario.php?respuesta=correcto");
+                 }
         }catch (Exception $w){
             header("Location: ../Vistas/Formulario.php?respuesta=error");
         }

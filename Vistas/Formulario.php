@@ -1,8 +1,9 @@
 <?php session_start();
 error_reporting(0);
 require "../Controlador/UsuarioController.php";
-if( $_SESSION['validacion']==false){
 
+if( $_SESSION['validacion']==false){
+var_dump($_SESSION['DataPersona']);
 }else{
     header("Location: InformacionEstadoSolicitud.php");
 }
@@ -90,7 +91,7 @@ if( $_SESSION['validacion']==false){
     <?php if ($_GET['respuesta'] == "correcto"){ ?>
         <script>
             alert("Registro Exitoso");
-            location.href="Formulario.php";
+           location.href="Formulario.php";
 
         </script>
         <script>
@@ -102,7 +103,7 @@ if( $_SESSION['validacion']==false){
     <?php }else { ?>
         <script>
             alert("Registro fallido");
-            location.href="Formulario.php";
+           location.href="Formulario.php";
         </script>
     <?php } ?>
 <?php } ?>
@@ -175,7 +176,7 @@ if( $_SESSION['validacion']==false){
                     </label>
                     <input type="text" name="direccion" required autocomplete="off"/>
                 </div>
-                <div class="top-row">|
+                <div class="top-row">
                 <div class="field-wrap">
                     <label>
                         Barrio<span class="req">*</span>
@@ -236,7 +237,7 @@ if( $_SESSION['validacion']==false){
                     </label>
                 </div>
                 <div class="field-wrap">
-                    <input hidden type="text" id="id" name="id" value="<?=$_SESSION['DataPersona']['Id']?>">
+                    <input  type="text" id="id" name="id" value="<?=$_SESSION['DataPersona']['Id']?>">
                 </div>
 
                 <input type="submit" value="Siguiente" id="Enviar" name="siguiente" class="button button-block"/>
@@ -410,7 +411,7 @@ if( $_SESSION['validacion']==false){
 
 
 <style type="text/css">
-    <!--
+   
 
     .Estilo1 {
         color: #FFFFFF;
@@ -425,7 +426,7 @@ if( $_SESSION['validacion']==false){
         font-style: italic;
         color: #FFFFFF;
     }
-    -->
+
 </style>
 
 

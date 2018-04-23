@@ -30,7 +30,8 @@ class UsuarioController
     public function CerrarSession (){
         header("Location: ../Vistas/index.php");
         session_destroy();
-        $_SESSION['validacion'] = true;
+        $_SESSION['validacion'] = false;
+
     }
 
     static public function crear(){
@@ -47,8 +48,8 @@ class UsuarioController
             $arrayusuario['Contrasena']=$md5;
             $Usuarios = new Usuario($arrayusuario);
             $Usuarios->insertar();
-            $_SESSION['DataPersona'] =$arrayusuario;
-            $_SESSION['validacion'] = true;
+          
+            $_SESSION['validacion'] = false;
             header("Location: ../Vistas/Formulario.php?respuesta=correcto");
         }catch (Exception $w){
             header("Location: ../Vistas/Formulario.php?respuesta=error");
@@ -176,8 +177,20 @@ class UsuarioController
 
         }
     }
+    public function validarFormularios ($id){
+        $getrows = $tmp->getRows("SELECT * FROM datosformulario inner join solicitud WHERE Cliente='". $id."' and Idcliente='". $id."'");
+         if(count($getrows) >= 1){
+            $_SESSION['validacion']=true;
+      echo true;
+         }else{
+            $_SESSION['validacion']=false;
+       echo true;
+         }
+    }
+
     static public function Login (){
         try {
+            $tmp = new cliente();
             $Usuario = $_POST['cedula_user'];
             $Contrasena = $_POST['pass_admin'];
             $arrayPersona =array();
@@ -186,8 +199,17 @@ class UsuarioController
                 if (is_array($respuesta)) {
                  $_SESSION['verificar']=true;
                  $_SESSION['DataPersona'] = $respuesta;
-                 $_SESSION['validacion']=false;
-                 echo TRUE;
+                
+                 $getrows = $tmp->getRows("SELECT * FROM datosformulario inner join solicitud WHERE Cliente='". $_SESSION['DataPersona']['Id']."' and Idcliente='". $_SESSION['DataPersona']['Id']."'");
+               
+                 if(count($getrows) >= 1){
+                    $_SESSION['validacion']=true;
+                    echo TRUE;
+                 }else{
+                    $_SESSION['validacion']=false;
+                    echo TRUE;
+                 }
+                
                 }else if($respuesta == "Password Incorrecto"){
                     echo '<script>
                         alert("Contraseña incorrecta");
@@ -212,7 +234,7 @@ class UsuarioController
     public function validLogin ($Usuario, $Contrasena) {
 
         $arraypersona = array();
-        $tmp = new Usuario();
+        $tmp = new cliente();
         $md5 = md5($Contrasena);
         $getTempUser = $tmp->getRows("SELECT * FROM cliente WHERE Cedula = '".$Usuario."'");
         if(count($getTempUser) >= 1){
