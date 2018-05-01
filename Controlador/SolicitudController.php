@@ -62,7 +62,7 @@ class SolicitudController
             var_dump($getrows);
              if(count($getrows) >= 1){
                 $_SESSION['validacion']=true;
-                header("Location: ../Vistas/InformacionEstadoSolicitud.php");
+                header("Location: ../Vistas/InformacionEstadoSolicitud.php?respuesta=correcto");
              }else{
                 $_SESSION['validacion']=false;
                 header("Location: ../Vistas/Formulario.php?respuesta=correcto");
@@ -125,7 +125,7 @@ class SolicitudController
                 var_dump($getrows);
                  if(count($getrows) >= 1){
                     $_SESSION['validacion']=true;
-                    header("Location: ../Vistas/InformacionEstadoSolicitud.php");
+                    header("Location: ../Vistas/InformacionEstadoSolicitud.php?respuesta=correcto");
                  }else{
                     $_SESSION['validacion']=false;
                     header("Location: ../Vistas/Formulario.php?respuesta=correcto");
@@ -136,10 +136,10 @@ class SolicitudController
     }
     static public function buscarID($Id){
         try {
-            return Solcitudes::buscarForId($Id);
+            return FormularioSolicitud::buscarForId($Id);
         } catch (Exception $e) {
             echo "Error en Solicitud controller";
-            header("Location: ../ShowSolicitud.php?respuesta=error");
+            header("Location: ../InformacionEstadoSolicitud.php?respuesta=error");
         }
     }
 

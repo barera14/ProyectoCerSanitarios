@@ -181,10 +181,6 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
 
     }
 
-
-
-
-
     public function insertar2()
     {
         $this->insertRow("INSERT INTO funcionario VALUES(NULL,?,?,?,?,?,?,?)",array(

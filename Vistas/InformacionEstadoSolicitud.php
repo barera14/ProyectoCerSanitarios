@@ -11,8 +11,7 @@ require "../Controlador/SolicitudController.php";
     <title> sanitario</title>
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
 
@@ -63,17 +62,15 @@ require "../Controlador/SolicitudController.php";
     }
 
     .dropdown a:hover {background-color: #ddd}
-
     .show {display:block;}
 </style>
 <br>
 <div class="dropdown">
-    <?php echo "<button onclick='myFunction()' class='dropbtn'>".($_SESSION['DataPersona']['Nombre'])." ".($_SESSION['DataPersona']['Apellido'])."</button>"; ?>
+<button onclick='myFunctions()' class='dropbtn'> <?php echo ($_SESSION['DataPersona']['Nombre'])." ".($_SESSION['DataPersona']['Apellido']); ?></button>
     <div id='myDropdown' class='dropdown-content'>
         <a href='#home'>Actualizar datos</a>
         <a href='../Controlador/UsuarioController.php?action=CerrarSession'>Cerrar Sesion</a>
     </div>
-
 </div>
 <style>
     body {
@@ -90,20 +87,11 @@ require "../Controlador/SolicitudController.php";
 <?php if(!empty($_GET['respuesta'])){ ?>
     <?php if ($_GET['respuesta'] == "correcto"){ ?>
         <script>
-            alert("Registro Exitoso");
-            location.href="Formulario.php";
-
-        </script>
-        <script>
-            $(document).ready(function () {
-                $('#signup').hide();
-                $('#li-signup').hide();
-            });
+            alert("Registro Exitoso, Ahora espere nuestra respuesta del administrador del sistema");
         </script>
     <?php }else { ?>
         <script>
             alert("Registro fallido");
-            location.href="Formulario.php";
         </script>
     <?php } ?>
 <?php } ?>
@@ -111,7 +99,7 @@ require "../Controlador/SolicitudController.php";
 
     <ul class="tab-group">
         <li class="tab active"><a href="#signup">Estado Solicitud</a></li>
-        <li class="tab"><a href="#login">Editar Información</a></li>
+        <li class="tab"><a href="#login" type="submit" onclick="ActiveForm()">Editar Información</a></li>
     </ul>
 
     <div class="tab-content">
@@ -121,28 +109,137 @@ require "../Controlador/SolicitudController.php";
             <h1>Estado de Solicitud</h1>
 
             <form  method="post" id="frmLogin"  >
-
-            <div class="top-row">
-
-            </div>
             <div class="field-wrap">
                 <label>
                     Estado: <?php echo SolicitudController::Estado($_SESSION['DataPersona']['Id']) ?>
                 </label>
-
-
-
             </div>
             </form>
         </div>
 
         <div id="login">
             <h1>Editar Información</h1>
+            <?php  $DataPersona = SolicitudController::buscarID($_SESSION['DataPersona']['Id']);  ?>
 
-            <form  method="post" id="frmLogin"  >
+            <form action="../Controlador/SolicitudController.php?action=Editar" name="formulario" method="post">
+
+                <div class="field-wrap">
+
+                    <label>
+                        Solicitud No<span class="req">* (Automatico) </span>
+                    </label>
+                    <input type="text" name="Solicitud No" readonly="readonly"<span class="req"></span>
+
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Nombres<span class="req">*</span>
+                    </label>
+                    <input type="text" name="nombre"  value="<?php echo $DataPersona->getNombres(); ?>"   required autocomplete="off"/>
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Cédula de Ciudadanía<span class="req">*</span>
+                    </label>
+                    <input type="number" id="cedula" name="nombre"  value="<?php echo $DataPersona->getCedula(); ?>"  required>
+
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Ciudad de Expediciòn<span class="req">*</span>
+                    </label>
+                    <input type="text" name="ciudad_expe"required value="<?php echo $DataPersona->getCiudadExpedicion(); ?>"  autocomplete="off"/>
+                </div>
 
 
-        </form>
+                <div class="field-wrap">
+                    <label>
+                        Razón Social<span class="req">*</span>
+                    </label>
+                    <input type="text" name="razon" value="<?php echo $DataPersona->getRazonSocial(); ?>" required autocomplete="off"/>
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Nit<span class="req">*</span>
+                    </label>
+                    <input type="text" name="nit"  value="<?php echo $DataPersona->getNit(); ?>" required autocomplete="off"/>
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                       Dirección <span class="req">*</span>
+                    </label>
+                    <input type="text" name="direccion" value="<?php echo $DataPersona->getDireccion(); ?>" required autocomplete="off"/>
+                </div>
+                <div class="top-row">
+                <div class="field-wrap">
+                    <label>
+                        Barrio<span class="req">*</span>
+                    </label>
+                    <input type="text" name="barrio" value="<?php echo $DataPersona->getBarrio(); ?>"  autocomplete="off"/>
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                       Comuna <span class="req">*</span>
+                    </label>
+                    <input type="text" name="comuna" value="<?php echo $DataPersona->getComuna(); ?>"  autocomplete="off"/>
+                </div>
+                </div>
+                <div class="top-row">
+                <div class="field-wrap">
+                    <label>
+                        Vereda<span class="req">*</span>
+                    </label>
+                    <input type="text" name="vereda"  value="<?php echo $DataPersona->getVereda(); ?>"  autocomplete="off"/>
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Corregimiento<span class="req">*</span>
+                    </label>
+                    <input type="text" name="Corregimiento"  value="<?php echo $DataPersona->getCorregimiento(); ?>"  autocomplete="off"/>
+                </div>
+                </div>
+                <div class="field-wrap">
+                    <label>
+                        Teléfono<span class="req">*</span>
+                    </label>
+                    <input type="text" name="telefono" id="telefono" value="<?php echo $DataPersona->getTelefono(); ?>"  required autocomplete="off"/>
+                </div>
+
+
+                <div class="field-wrap">
+
+                    <div class="select">
+                    <select name="regimen" id="" >
+                        <option value="">Seleccione</option>
+                        <option value="Comun"  <?php if($DataPersona->getRegimen() == "Comun"){ echo "selected"; } ?>>Régimen Común</option>
+                        <option value="Simplicado"  <?php if($DataPersona->getRegimen() == "Simplicado"){ echo "selected"; } ?>>Régímen Simplificado</option>
+                    </select>
+                    </div>
+                    <label>
+                        Régimen del Establecimiento<span class="req">*</span>
+                    </label>
+                </div>
+                <div class="field-wrap">
+
+                    <textarea name="actividad" required autocomplete="off"><?php echo $DataPersona->getActividadEconomica(); ?></textarea>
+                    <label>
+                        Actividad Económica<span class="req">*</span>
+                    </label>
+                </div>
+                <div class="field-wrap">
+                    <input hidden type="text" id="id" name="id" value="<?=$_SESSION['DataPersona']['Id']?>">
+                </div>
+
+                <input type="submit" value="Siguiente" id="Enviar" name="siguiente" class="button button-block"/>
+
+            </form>
         </div>
 
     </div><!-- tab-content -->
@@ -156,13 +253,15 @@ require "../Controlador/SolicitudController.php";
 <script  src="js/index.js"></script>
 
 <script>
-    /* When the user clicks on the button,
-     toggle between hiding and showing the dropdown content */
-    function myFunction() {
+    function myFunctions() {
         document.getElementById("myDropdown").classList.toggle("show");
     }
 
-    // Close the dropdown if the user clicks outside of it
+    function ActiveForm(){
+        var da=document.getElementById('telefono').value;
+        alert(da);
+        document.getElementsByTagName('label').className ="active highlight";
+    }
     window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
 

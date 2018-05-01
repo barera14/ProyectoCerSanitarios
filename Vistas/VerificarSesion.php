@@ -9,7 +9,7 @@ if (basename($_SERVER['REQUEST_URI']) == "index.php"){
 }else{
     if (empty($_SESSION["DataPersona"])){
 
-        header("Location: index.php");
+       
     }
 }
 ?>

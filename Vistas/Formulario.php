@@ -90,9 +90,7 @@ if( $_SESSION['validacion']==false){
 <?php if(!empty($_GET['respuesta'])){ ?>
     <?php if ($_GET['respuesta'] == "correcto"){ ?>
         <script>
-            alert("Registro Exitoso");
-           location.href="Formulario.php";
-
+            alert("Registro Exitoso, Adjunte los Archivos para completar la solicitud");
         </script>
         <script>
             $(document).ready(function () {
@@ -103,7 +101,6 @@ if( $_SESSION['validacion']==false){
     <?php }else { ?>
         <script>
             alert("Registro fallido");
-           location.href="Formulario.php";
         </script>
     <?php } ?>
 <?php } ?>

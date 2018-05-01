@@ -35,22 +35,18 @@ error_reporting(0);
     <?php if ($_GET['respuesta'] == "correcto"){ ?>
         <script>
             alert("Registro Exitoso, Por favor inicie sesion");
-          
         </script>
     <?php }else if($_GET['respuesta']=='errorUser') { ?>
         <script>
             alert("Error usuario!!");
-         
         </script>
     <?php } else if($_GET['respuesta']=='errorSesion') { ?>
     <script>
         alert("Error por favor inicia sesion");
-       
     </script>
 <?php } else if($_GET['respuesta']=='error'){?>
         <script>
             alert("Error al crear el usuario");
-         
         </script>
  <?php }?>
 
@@ -142,13 +138,14 @@ error_reporting(0);
                     <label>
                         Cedula de Cidadania<span class="req">*</span>
                     </label>
-                    <input type="text" name="cedula_user" required autocomplete="off"/>
+                    <input type="text"  name="cedula_user" required  autocomplete="off"/>
+                   
                 </div>
                 <div class="field-wrap">
                     <label>
                         Contraseña<span class="req">*</span>
                     </label>
-                    <input type="password" name="pass_admin" required autocomplete="off"/>
+                    <input type="password" name="pass_admin"  required autocomplete="off"/>
                 </div>
                 <div id="results" hidden>
 
@@ -169,7 +166,12 @@ error_reporting(0);
 
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+$(document).ready(function(){
+    
+});
 
+</script>
 <script  src="js/index.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
