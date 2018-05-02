@@ -35,6 +35,14 @@ class UsuarioController
         $_SESSION['validacion'] = false;
 
     }
+    static public function buscarID($Id){
+        try {
+            return cliente::buscarForId($Id);
+        } catch (Exception $e) {
+            echo "Error en Solicitud controller";
+            header("Location: ../pdf.php?respuesta=error");
+        }
+    }
 
     static public function crear(){
         try{
@@ -141,21 +149,31 @@ class UsuarioController
 
     public function Solicitudes($id){
         $arrPerson = Solcitudes::getAllDocumento($id);
-
         $htmlSelect = "";
+        $htmlSelect .= "<tr>";
         foreach ($arrPerson as $Usuario) {
             if($Usuario->getIdcliente()==$id){
-            $htmlSelect .= "<tr>";
-            if($Usuario-getCedulaPdf()!=null){
-            $htmlSelect .= "<td ><a href='".$Usuario->getCedulaPdf()."'  download='".$Usuario->getCedulaPdf()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class='btn docs-tooltip btn-primary btn-xs'><i class='glyphicon glyphicon-save'></i></a></td>";
+            
+            if($Usuario->getCedulaPdf()!=null){
+            $htmlSelect .= "<td ><a href='".$Usuario->getCedulaPdf()."'  download='".$Usuario->getCedulaPdf()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class=' docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
             }else {
                 $htmlSelect .= "<td >No hay archivo</td>";
             }
-            $htmlSelect .= "<td>" . $Usuario->getCamComerPdf() . "</td>";
-            $htmlSelect .= "<td>".$Usuario->getFormSuelo()."</td>";
-            $htmlSelect .= "<td>";
-            $htmlSelect .= $Usuario->getRutPdf();
-            $htmlSelect .= "</td>";
+            if($Usuario->getCamComerPdf()!=null){
+                $htmlSelect .= "<td><a href='". $Usuario->getCamComerPdf()."'  download='". $Usuario->getCamComerPdf()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class='docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
+            }else {
+                    $htmlSelect .= "<td >No hay archivo</td>";
+                }
+                if($Usuario->getFormSuelo()!=null){
+                    $htmlSelect .= "<td><a href='". $Usuario->getFormSuelo()."'  download='". $Usuario->getFormSuelo()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class=' docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
+                }else {
+                        $htmlSelect .= "<td >No hay archivo</td>";
+                    }
+                    if($Usuario->getRutPdf()!=null){
+                        $htmlSelect .= "<td><a href='". $Usuario->getRutPdf()."'  download='". $Usuario->getRutPdf()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class='docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
+                    }else {
+                            $htmlSelect .= "<td >No hay archivo</td>";
+                        }
             $htmlSelect .= "</tr>";
             }else {
             $htmlSelect .= "<tr>";

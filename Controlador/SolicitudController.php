@@ -26,11 +26,11 @@ class SolicitudController
         try {
             $ObjEspecialidad = FormularioSolicitud::buscarForId($_GET['id']);
             echo var_dump($ObjEspecialidad);
-//            $ObjEspecialidad->setEstaado("Aceptada");
-//            $ObjEspecialidad->editarEstado();
-//            header("Location: ../Vista/Solicitudes.php?respuesta=correcto");
+          $ObjEspecialidad->setEstaado("Aceptada");
+          $ObjEspecialidad->editarEstaado();
+           header("Location: ../Vista/pdf.php?respuesta=correcto");
         } catch (Exception $e) {
-            header("Location: ../Vista/Solicitudes.php?respuesta=error");
+            header("Location: ../Vista/pdf.php?respuesta=error");
         }
     }
     static public function crearSolicitud(){
@@ -143,7 +143,32 @@ class SolicitudController
         }
     }
 
+    static public function buscarIDArchivos($Id){
+        try {
+            $arrPerson=  Solicitudes::buscarForId($Id);
 
+            $htmlSelect = "";
+            foreach ($arrPerson as $Usuario) {
+                $htmlSelect .= "<tr>";
+                $htmlSelect .= "<td hidden  >".$Usuario->getIdfuncionario()."</td>";
+                $htmlSelect .= "<td>" . $Usuario->getNombre() . " ".$Usuario->getApellido()."</td>";
+                $htmlSelect .= "<td>".$Usuario->getCedula()."</td>";
+                $htmlSelect .= "<td>";
+                $htmlSelect .= "<a href='?id=".$Usuario->getId()." type='button' data-toggle='tooltip' title='Ver Persona' class='btn docs-tooltip btn-danger btn-xs' ><i class='fa fa-eye'></i></a>";
+                $htmlSelect .= "<spam> </spam>";
+                $htmlSelect .= "<a href='RegistroFuncionario.php?id=".$Usuario->getIdfuncionario()."' type='button' data-toggle='tooltip' title='Actualizar' class='btn docs-tooltip btn-primary btn-xs'><i class='fa fa-edit'></i></a>";
+                $htmlSelect .= "<spam> </spam>";
+                $htmlSelect .= "<a href='../Controlador/UsuarioController.php?action=Delete&id=".$Usuario->getIdfuncionario()."' type='button' data-toggle='tooltip' title='Eliminar' class='btn docs-tooltip btn-succes btn-xs'><i class='fa fa-minus-square'></i></a>";
+                $htmlSelect .= "</td>";
+                $htmlSelect .= "</tr>";
+            }
+             $htmlSelect .= "</tr>";
+            return  $htmlSelect;
+        } catch (Exception $e) {
+            echo "Error en Solicitud controller";
+            header("Location: ../pdf.php?respuesta=error");
+        }
+    }
     static public function editar (){
         try {
             $arraySolicitud = array();

@@ -1,5 +1,6 @@
 <?php
 require "../Controlador/UsuarioController.php";
+require "../Controlador/SolicitudController.php";
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -10,6 +11,7 @@ require "../Controlador/UsuarioController.php";
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   
       <link rel="stylesheet" href="css/style.css">
 
@@ -39,6 +41,17 @@ require "../Controlador/UsuarioController.php";
     </div>
 </div>
   <font color="Olive" face=",arialComic Sans MS">
+  <?php if(!empty($_GET['respuesta'])){ ?>
+        <?php if ($_GET['respuesta'] == "correcto"){ ?>
+            <script>
+                alert("Registro Exitoso");
+            </script>
+        <?php }else if($_GET['respuesta'] == "error"){ ?>
+            <script>
+                alert("Registro fallido");
+            </script>
+        <?php }  ?>
+    <?php } ?>
   <h1><center><font color="white">Certicado Sanitario Yopal</font></center></h1>
   </font></div>  
   <style>
@@ -116,6 +129,7 @@ require "../Controlador/UsuarioController.php";
           <h1>Infromacion de Solicitud</h1>
           <form  method="post" id="frmLogin">
           <h2>Informacion de Usuario</h2>
+          <?php  $DataPersona = UsuarioController::buscarID($_GET['id']);  ?>
           <div class="field-wrap">
           <table>
           <tr>
@@ -124,9 +138,9 @@ require "../Controlador/UsuarioController.php";
           <th>&nbsp<spam> Cedula </spam></th>
           </tr>
           <tr>
-          <td><spam> CorreoApellidoApellidoss</spam></td>
-          <td><spam> Dirección:ApellidosApellidos</spam> </td>
-          <td><spam> CelularApellidos</spam> </td>
+          <td><spam><?php echo $DataPersona->getNombre(); ?></spam></td>
+          <td><spam><?php echo $DataPersona->getApellido(); ?></spam> </td>
+          <td><spam><?php echo $DataPersona->getCedula(); ?></spam> </td>
           </tr>
           <tr>
           <th>&nbsp<spam> Correo</spam></th>
@@ -134,13 +148,14 @@ require "../Controlador/UsuarioController.php";
           <th>&nbsp<spam> Celular </spam></th>
           </tr>
           <tr>
-          <td><spam> CorreApellidoApellidoss</spam></td>
-          <td><spam> DireccióApellidosApellido</spam></td>
-          <td><spam> CelularApellidos</spam></td>
+          <td><spam><?php echo $DataPersona->getCorreo(); ?></spam></td>
+          <td><spam><?php echo $DataPersona->getDireccion(); ?></spam></td>
+          <td><spam><?php echo $DataPersona->getCelular(); ?></spam></td>
           </tr>
           </table>
           
           </div>
+          <?php  $DataEsta = SolicitudController::buscarID($_GET['id']);  ?>
           <div class="field-wrap">
           <h2>Informacion de Establecimiento</h2>
           <table>
@@ -150,9 +165,9 @@ require "../Controlador/UsuarioController.php";
           <th>&nbsp<spam> Direcion </spam></th>
           </tr>
           <tr>
-          <td><spam> CorreoApellidoApellidoss</spam></td>
-          <td><spam> Dirección:ApellidosApellidos</spam> </td>
-          <td><spam> CelularApellidos</spam> </td>
+          <td><spam><?php echo $DataEsta->getRazonSocial(); ?></spam></td>
+          <td><spam><?php echo $DataEsta->getNit(); ?></spam> </td>
+          <td><spam><?php echo $DataEsta->getDireccion(); ?></spam> </td>
           </tr>
           <tr>
           <th>&nbsp<spam> Barrio</spam></th>
@@ -160,9 +175,9 @@ require "../Controlador/UsuarioController.php";
           <th>&nbsp<spam> Vereda </spam></th>
           </tr>
           <tr>
-          <td><spam> CorreApellidoApellidoss</spam></td>
-          <td><spam> DireccióApellidosApellido</spam></td>
-          <td><spam> CelularApellidos</spam></td>
+          <td><spam><?php echo $DataEsta->getBarrio(); ?></spam></td>
+          <td><spam><?php echo $DataEsta->getComuna(); ?></spam></td>
+          <td><spam><?php echo $DataEsta->getVereda(); ?></spam></td>
           </tr>
           <tr>
           <th>&nbsp<spam> Corregimiento</spam></th>
@@ -170,9 +185,9 @@ require "../Controlador/UsuarioController.php";
           <th>&nbsp<spam> Regimen </spam></th>
           </tr>
           <tr>
-          <td><spam> CorreApellidoApellidoss</spam></td>
-          <td><spam> DireccióApellidosApellido</spam></td>
-          <td><spam> Regimen </spam></td>
+          <td><spam><?php echo $DataEsta->getCorregimiento(); ?></spam></td>
+          <td><spam><?php echo $DataEsta->getTelefono(); ?></spam></td>
+          <td><spam>Regimen <?php $DataEsta->getRegimen();?></spam></td>
           </tr>
           </table>
          
@@ -189,12 +204,15 @@ require "../Controlador/UsuarioController.php";
                     </tr>
                     </thead>
                     <tbody>
-                    <?php // echo UsuarioController::tablaPersona2(); ?>
+                    <?php  echo UsuarioController::Solicitudes($_GET['id']); ?>
                     </tbody>
                 </table>
           <div class="field-wrap">
           </div>
-          <input type="submit" value="Ingresar" class="button button-block"/>
+          
+          <a  href="../Controlador/SolicitudController.php?action=Solicitud&id=<?php echo $_GET['id']; ?>"  type="button" class="btn btn-large btn-block btn-danger">Aceptar Solicitud</a>
+          <a type="button" href="" class="btn btn-large btn-block btn-succes">Volver</a>
+          
           </form>
       </div><!-- tab-content -->
 </div> <!-- /form -->
@@ -223,35 +241,6 @@ require "../Controlador/UsuarioController.php";
         }
     }
 </script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#frmLogin').on('submit', function (e) {
-            if (!e.isDefaultPrevented()) {
-             
-                var formData = $(this).serialize(); //Serializamos los campos del formulario
-                $.ajax({
-                    type        : 'POST', // Metodo de Envio
-                    url         : '../Controlador/UsuarioController.php?action=LoginAdmin', // Ruta del envio
-                    data        : formData, // our data object
-                    encode      : true
-                })
-                    .done(function(data) {
-                        if (data.indexOf('1') != -1){
-                            window.location.href = "RegistroFuncionario.php";
-                           
-                              }else if(data.indexOf('errorPass') != -1){
-                            alert("Contraseña Incorrecta");
-                         }else if(data.indexOf('UserNoEx') != -1){
-                            alert("Usuario no Existe");
-                          }
-                    });
-                event.preventDefault();
-            }
-        });
-    });
-</script>
-
 
 
 </body>

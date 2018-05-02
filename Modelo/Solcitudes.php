@@ -213,7 +213,7 @@ class Solcitudes  extends db_abstract_class//hereda metodos de conexion
     }
     public static function getAllDocumento($id)
     {
-        return Solcitudes::buscar("SELECT * FROM bdsanitario.solicitud WHERE Idcliente='.$id.'");
+        return Solcitudes::buscar("SELECT * FROM solicitud WHERE Idcliente =".$id."");
     }
 
     public function eliminar($id)

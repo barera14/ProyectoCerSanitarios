@@ -449,15 +449,20 @@ class FormularioSolicitud extends db_abstract_class
 
     public function editarEstado()
     {
-        $this->updateRow("UPDATE datosformulario SET Estaado = ?, idSecretarias = ? WHERE idFormulario = ?", array(
+        $this->updateRow("UPDATE datosformulario SET Estaado = ? WHERE Cliente = ?", array(
 
-            $this->Estaado
+            $this->Estaado,
+            $this->Cliente
         ));
         $this->Disconnect();
     }
     public function editar()
     {
+ $this->updateRow("UPDATE datosformulario SET Estaado = ? WHERE idFormulario = ?", array(
 
+            $this->Estaado
+        ));
+        $this->Disconnect();
     }
 
     public function eliminar($id)
