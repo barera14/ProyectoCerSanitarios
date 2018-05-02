@@ -256,12 +256,6 @@ require "../Controlador/SolicitudController.php";
     function myFunctions() {
         document.getElementById("myDropdown").classList.toggle("show");
     }
-
-    function ActiveForm(){
-        var da=document.getElementById('telefono').value;
-        alert(da);
-        document.getElementsByTagName('label').className ="active highlight";
-    }
     window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
 

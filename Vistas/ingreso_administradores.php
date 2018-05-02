@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -14,6 +15,14 @@
 </head>
 
 <body>
+<style>
+    body {
+        background-size: 100%;
+        background-image: url("css/alcaldia2.jpg");
+        position: absolute;
+        margin-left: 450px;
+    }
+</style>
   <br>
   <div id="cabeza">
   <font color="Olive" face=",arialComic Sans MS">
@@ -21,38 +30,24 @@
   </font></div>  
 
   <div class="form">
-      
-    
- 
-        
         <div id="login">   
           <h1>Acceso de Funcionarios</h1>
-          
           <form  method="post" id="frmLogin">
-          
-            <div class="field-wrap">
+          <div class="field-wrap">
             <label>
               Cedula de Cidadania<span class="req">*</span>
             </label>
             <input type="text" name="Cc_admin" required autocomplete="off"/>
           </div>
-          
           <div class="field-wrap">
             <label>
               Contraseña<span class="req">*</span>
             </label>
             <input type="password" name="pass_admin" required autocomplete="off"/>
           </div>
-          
-          
-          <input type="submit" value="ENTRAR" class="button button-block"/>
-          
+          <input type="submit" value="Ingresar" class="button button-block"/>
           </form>
-
-        </div>
-        
       </div><!-- tab-content -->
-      
 </div> <!-- /form -->
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
@@ -61,6 +56,7 @@
     $(document).ready(function() {
         $('#frmLogin').on('submit', function (e) {
             if (!e.isDefaultPrevented()) {
+             
                 var formData = $(this).serialize(); //Serializamos los campos del formulario
                 $.ajax({
                     type        : 'POST', // Metodo de Envio
@@ -72,9 +68,11 @@
                         if (data.indexOf('1') != -1){
                             window.location.href = "RegistroFuncionario.php";
                            
-                              }else{
-                            $('#results').html(data);
-                        }
+                              }else if(data.indexOf('errorPass') != -1){
+                            alert("Contraseña Incorrecta");
+                         }else if(data.indexOf('UserNoEx') != -1){
+                            alert("Usuario no Existe");
+                          }
                     });
                 event.preventDefault();
             }

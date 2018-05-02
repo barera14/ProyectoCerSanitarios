@@ -1,5 +1,11 @@
 <?php
 require "../Controlador/UsuarioController.php";
+if( $_SESSION['DataPersona']['cargo']=='Administrador'){
+
+}else{
+   header("Location: Solicitudes.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -11,14 +17,38 @@ require "../Controlador/UsuarioController.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/inicio.css" />
-
-
     <link rel="stylesheet" href="css/style.css">
+    <style>
+            body{
+                background-size: 100%;
+                background-image: url("css/funcionario.jpg");
+                position: absolute;
+            }
+            #customers {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #customers tr{background-color: #f2f2f2;}
+
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #1ab188;
+                color: white;
+            }
+
+        </style>
     <style>
         .dropbtn {
             background-color: #179b77;
@@ -65,15 +95,15 @@ require "../Controlador/UsuarioController.php";
 
 <body>
 <br>
+
+<div style="margin-left: 450px;">
 <div class="dropdown">
     <?php echo "<button onclick='myFunction()' class='dropbtn'>".($_SESSION['DataPersona']['Nombre'])." ".($_SESSION['DataPersona']['Apellido'])."</button>"; ?>
     <div id='myDropdown' class='dropdown-content'>
      <a href='#home'>Actualizar datos</a>
     <a href='../Controlador/UsuarioController.php?action=CerrarSession'>Cerrar Sesion</a>
     </div>
-
 </div>
-<div style="margin-left: 450px;">
 <div id="cabeza">
     <font color="Olive" face=",arialComic Sans MS">
         <h1><center><font color="white">Certificado Sanitario Yopal</font></center></h1>
@@ -179,36 +209,6 @@ require "../Controlador/UsuarioController.php";
             </form>
 
         </div>
-        <style>
-            body{
-                background-size: 100%;
-                background-image: url("css/funcionario.jpg");
-                position: absolute;
-            }
-            #customers {
-                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 100%;
-            }
-
-            #customers td, #customers th {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-
-            #customers tr{background-color: #f2f2f2;}
-
-
-            #customers th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #1ab188;
-                color: white;
-            }
-
-        </style>
-
         <div id="login">
             <h1>Serviciós en linea</h1>
 
@@ -224,58 +224,16 @@ require "../Controlador/UsuarioController.php";
                 <tbody>
                 <?php echo UsuarioController::tablaPersona(); ?>
                 </tbody>
-
             </table>
 
             </div>
     </div><!-- tab-content -->
     </div>
 </div> <!-- /form -->
+    
 
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-<----------------------modal ver----------------------------  -->
-
-
-<div id="id01" class="modal1">
-
-
-
-    <span onClick="document.getElementById('id01').style.display='none'" class="close1" title="Close Modal">&times;</span>
-
-
-    <div id="Contenedor_11">
-        <h1 id="h1_1">Serviciós en linea</h1>
-
-        <div id="object_1">
-            <center><table class="customerss">
-                    <h4>Datos Personales</h4>
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Cedula de Ciudadania</th>
-                        <th>Correo Electronico</th>
-                        <th>Celular</th>
-
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php echo 'sexoo anallll'; ?>
-                    </tbody>
-
-                </table>
-                    <br>
-        </div>
-
-
-
-</div>
-
-
-
-    <----------------------------------------------------->
 
 <script>
     /* When the user clicks on the button,
@@ -299,10 +257,6 @@ require "../Controlador/UsuarioController.php";
         }
     }
 </script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-
 <script  src="js/index.js"></script>
 
 </body>

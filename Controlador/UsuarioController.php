@@ -104,19 +104,20 @@ class UsuarioController
     }
     public function tablaPersona2 (){
         $arrPerson = cliente::getAll();
-        $htmlSelect = "";
+        $tmp = new cliente();
+         $htmlSelect = "";
         foreach ($arrPerson as $Usuario) {
-            echo var_dump($Usuario);
+            $getrows = $tmp->getRows("SELECT * FROM datosformulario inner join solicitud WHERE Cliente='". $Usuario->getId()."' and Idcliente='". $Usuario->getId()."'");
             $htmlSelect .= "<tr>";
-            $htmlSelect .= "<td   >".$Usuario->getId()."</td>";
+            $htmlSelect .= "<td hidden  >".$Usuario->getId()."</td>";
             $htmlSelect .= "<td>" . $Usuario->getNombre() . " ".$Usuario->getApellido()."</td>";
             $htmlSelect .= "<td>".$Usuario->getCedula()."</td>";
             $htmlSelect .= "<td>";
-            $htmlSelect .= "<button type='button' id='myBtn' data-toggle='tooltip' title='Ver Persona' class='btn docs-tooltip btn-danger btn-xs'  onclick='mi_funcion()' ><i class='fa fa-eye'></i></button>";
+            if(count($getrows) >= 1){
+            $htmlSelect .= "<a href='pdf.php?id=".$Usuario->getId()."' type='button' id='myBtn' data-toggle='tooltip' title='Ver Solicitud' class='btn docs-tooltip btn-danger btn-xs'   ><i class='fa fa-eye'></i></a>";
+        }
             $htmlSelect .= "<spam> </spam>";
-            $htmlSelect .= "<a href='../Controlador/SolicitudController.php?action=Solicitud&id=".$Usuario->getId()."' type='button' data-toggle='tooltip' title='Aceptar Solicitud' class='btn docs-tooltip btn-primary btn-xs'><i class='fa fa-check'></i></a>";
-            $htmlSelect .= "<spam> </spam>";
-            $htmlSelect .= "<a href='../Controlador/UsuarioController.php?action=Delete&id=".$Usuario->getId()."' type='button' data-toggle='tooltip' title='Eliminar' class='btn docs-tooltip btn-succes btn-xs'><i class='fa fa-minus-square'></i></a>";
+           // $htmlSelect .= "<a href='../Controlador/UsuarioController.php?action=Delete&id=".$Usuario->getId()."' type='button' data-toggle='tooltip' title='Eliminar' class='btn docs-tooltip btn-succes btn-xs'><i class='fa fa-minus-square'></i></a>";
             $htmlSelect .= "</td>";
             $htmlSelect .= "</tr>";
         }
@@ -266,17 +267,14 @@ class UsuarioController
                 $respuesta = UsuarioController::validLoginAd($Usuario, $Contrasena);
                 if (is_array($respuesta)) {
                  $_SESSION['verificar']=true;
+           
                  $_SESSION['DataPersona'] = $respuesta;
-         
+                
                     echo TRUE;
                 }else if($respuesta == "Password Incorrecto"){
-                    echo '<script>
-                        alert("Contraseña incorrecta");
-                              </script>';
+                    echo 'errorPass';
                 }else if($respuesta == "No existe el usuario"){
-                    echo '<script>            
-                        alert("No exite ese usuario");
-                              </script>';
+                    echo 'UserNoEx';
                 }
             }else{
                 echo '<script>
@@ -296,7 +294,7 @@ class UsuarioController
         $tmp = new cliente();
         $md5 = md5($Contrasena);
         $getTempUser = $tmp->getRows("SELECT * FROM funcionario WHERE Cedula = '".$Usuario."'");
-        $getTempUserA = $tmp->getRows("SELECT * FROM administrativos WHERE Cedula = '".$Usuario."'");
+        $getTempUserA = $tmp->getRows("SELECT * FROM administrativos WHERE Cedula = '".$Usuario."' AND cargo='Administrador'");
         if(count($getTempUser) >= 1 || count($getTempUserA) >= 1){
             $getrows = $tmp->getRows("SELECT * FROM funcionario WHERE Cedula = '".$Usuario."' AND Contrasena = '".$md5."'");
             $getrowsA = $tmp->getRows("SELECT * FROM administrativos WHERE Cedula = '".$Usuario."' AND Contrasena = '".$md5."'");

@@ -189,12 +189,12 @@ public static  function  buscarForId($id)
 public static function buscar($query)
 {
     $arrPacientes = array();
-    $tmp = new Usuario();
+    $tmp = new cliente();
     $getrows = $tmp->getRows($query);
 
     foreach ($getrows as $valor) {
-        $persona = new Usuario();
-        $persona->idfuncionario = $valor['Id'];
+        $persona = new cliente();
+        $persona->Id = $valor['Id'];
         $persona->Nombre = $valor['Nombre'];
         $persona->Apellido = $valor['Apellido'];
         $persona->Cedula = $valor['Cedula'];
@@ -209,6 +209,10 @@ public static function buscar($query)
 }
 
     public static function getAll()
+    {
+        return cliente::buscar("SELECT * FROM bdsanitario.cliente");
+    }
+    public static function getAllLogin()
     {
         return cliente::buscar("SELECT * FROM bdsanitario.cliente");
     }
