@@ -20,17 +20,28 @@ class SolicitudController
             SolicitudController::crearSolicitud();
         }else if($action=="Solicitud"){
             SolicitudController::cambiarEstado();
+        }else if($action=="SolicitudRe"){
+            SolicitudController::cambiarEstadoR();
         }
     }
     static public function cambiarEstado(){
         try {
             $ObjEspecialidad = FormularioSolicitud::buscarForId($_GET['id']);
-            echo var_dump($ObjEspecialidad);
           $ObjEspecialidad->setEstaado("Aceptada");
-          $ObjEspecialidad->editarEstaado();
-           header("Location: ../Vista/pdf.php?respuesta=correcto");
+          $ObjEspecialidad->editarEstado();
+           header("Location: ../Vistas/pdf.php?id=".$_GET['id']."&respuesta=correcto");
         } catch (Exception $e) {
-            header("Location: ../Vista/pdf.php?respuesta=error");
+            header("Location: ../Vistas/pdf.php?id=".$_GET['id']."&respuesta=error");
+        }
+    }
+    static public function cambiarEstadoR(){
+        try {
+            $ObjEspecialidad = FormularioSolicitud::buscarForId($_GET['id']);
+          $ObjEspecialidad->setEstaado("Rechazada");
+          $ObjEspecialidad->editarEstado();
+           header("Location: ../Vistas/pdf.php?id=".$_GET['id']."&respuesta=correcto");
+        } catch (Exception $e) {
+            header("Location: ../Vistas/pdf.php?id=".$_GET['id']."&respuesta=error");
         }
     }
     static public function crearSolicitud(){

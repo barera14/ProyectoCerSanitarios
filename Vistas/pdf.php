@@ -211,7 +211,7 @@ require "../Controlador/SolicitudController.php";
           </div>
           
           <a  href="../Controlador/SolicitudController.php?action=Solicitud&id=<?php echo $_GET['id']; ?>"  type="button" class="btn btn-large btn-block btn-danger">Aceptar Solicitud</a>
-          <a type="button" href="" class="btn btn-large btn-block btn-succes">Volver</a>
+          <a type="button" href="../Controlador/SolicitudController.php?action=SolicitudRe&id=<?php echo $_GET['id']; ?>" class="btn btn-large btn-block btn-succes">Rechazar</a>
           
           </form>
       </div><!-- tab-content -->
