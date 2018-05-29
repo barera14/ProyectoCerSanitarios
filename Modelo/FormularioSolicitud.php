@@ -28,7 +28,7 @@ class FormularioSolicitud extends db_abstract_class
     private $Actividad_Economica;
     private $Estaado;
     private $Cliente;
-
+    private $Observacion;
 
 
     public function __construct($FormularioSo_data=array())
@@ -57,7 +57,7 @@ class FormularioSolicitud extends db_abstract_class
             $this->Actividad_Economica="";
             $this->Estaado="";
             $this->Cliente="";
-
+            $this->Observacion="";
         }
     }
 
@@ -86,6 +86,7 @@ class FormularioSolicitud extends db_abstract_class
             $tmp->Actividad_Economica = $getrow['Actividad_Economica'];
             $tmp->Estaado = $getrow['Estaado'];
             $tmp->Cliente  = $getrow['Cliente'];
+            $tmp->Observacion=$getrow['Observacion'];
             $tmp->Disconnect();
             return $tmp;
         }else{
@@ -106,6 +107,21 @@ class FormularioSolicitud extends db_abstract_class
     public function setIdFormulario($idFormulario)
     {
         $this->idFormulario = $idFormulario;
+    }
+  /**
+     * @return mixed
+     */
+    public function getObservacion()
+    {
+        return $this->Observacion;
+    }
+
+    /**
+     * @param mixed $Observacion
+     */
+    public function setObservacion($Observacion)
+    {
+        $this->Observacion = $Observacion;
     }
 
     /**
@@ -408,9 +424,7 @@ class FormularioSolicitud extends db_abstract_class
             $persona->Actividad_Economica = $valor['Actividad_Economica'];
             $persona->Estaado = $valor['Estaado'];
             $persona->Cliente = $valor['Cliente'];
-
-
-
+            $persona->Observacion=$valor['Observacion'];
             array_push($arrPacientes, $persona);
         }
         $tmp->Disconnect();
@@ -449,9 +463,10 @@ class FormularioSolicitud extends db_abstract_class
 
     public function editarEstado()
     {
-        $this->updateRow("UPDATE datosformulario SET Estaado = ? WHERE Cliente = ?", array(
+        $this->updateRow("UPDATE datosformulario SET Estaado = ?, Observacion=? WHERE Cliente = ?", array(
 
             $this->Estaado,
+            $this->Observacion,
             $this->Cliente
         ));
         $this->Disconnect();

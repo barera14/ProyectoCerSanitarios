@@ -20,28 +20,18 @@ class SolicitudController
             SolicitudController::crearSolicitud();
         }else if($action=="Solicitud"){
             SolicitudController::cambiarEstado();
-        }else if($action=="SolicitudRe"){
-            SolicitudController::cambiarEstadoR();
         }
     }
     static public function cambiarEstado(){
         try {
-            $ObjEspecialidad = FormularioSolicitud::buscarForId($_GET['id']);
-          $ObjEspecialidad->setEstaado("Aceptada");
+            $ObjEspecialidad = FormularioSolicitud::buscarForId($_POST['id']);
+          $ObjEspecialidad->setEstaado($_POST['estado']);
+          $ObjEspecialidad->setCliente($_POST['id']);
+          $ObjEspecialidad->setObservacion($_POST['observaciones']);
           $ObjEspecialidad->editarEstado();
-           header("Location: ../Vistas/pdf.php?id=".$_GET['id']."&respuesta=correcto");
+           header("Location: ../Vistas/pdf.php?id=".$_POST['id']."&respuesta=correcto");
         } catch (Exception $e) {
-            header("Location: ../Vistas/pdf.php?id=".$_GET['id']."&respuesta=error");
-        }
-    }
-    static public function cambiarEstadoR(){
-        try {
-            $ObjEspecialidad = FormularioSolicitud::buscarForId($_GET['id']);
-          $ObjEspecialidad->setEstaado("Rechazada");
-          $ObjEspecialidad->editarEstado();
-           header("Location: ../Vistas/pdf.php?id=".$_GET['id']."&respuesta=correcto");
-        } catch (Exception $e) {
-            header("Location: ../Vistas/pdf.php?id=".$_GET['id']."&respuesta=error");
+            header("Location: ../Vistas/pdf.php?id=".$_POST['id']."&respuesta=error");
         }
     }
     static public function crearSolicitud(){
@@ -90,8 +80,12 @@ class SolicitudController
 
         $htmlSelect = "";
         foreach ($arrayF as $valor) {
-
-            $htmlSelect .= "<spam>".$valor->getEstaado()."</spam>";
+            $htmlSelect .="<label>Estado: ";
+            $htmlSelect .= "<spam>".$valor->getEstaado()."</spam></label>";
+            $htmlSelect .="<br/>";
+            $htmlSelect .="<br/>";
+            $htmlSelect .="<label>Observaciòn:";
+            $htmlSelect .= "<spam>".$valor->getObservacion()."</spam> </label>";
         }
         return  $htmlSelect;
     }

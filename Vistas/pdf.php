@@ -127,7 +127,7 @@ require "../Controlador/SolicitudController.php";
   <div class="form" style="width:1050px;">
         <div id="login">   
           <h1>Infromacion de Solicitud</h1>
-          <form  method="post" id="frmLogin">
+         
           <h2>Informacion de Usuario</h2>
           <?php  $DataPersona = UsuarioController::buscarID($_GET['id']);  ?>
           <div class="field-wrap">
@@ -207,13 +207,35 @@ require "../Controlador/SolicitudController.php";
                     <?php  echo UsuarioController::Solicitudes($_GET['id']); ?>
                     </tbody>
                 </table>
-          <div class="field-wrap">
-          </div>
-          
-          <a  href="../Controlador/SolicitudController.php?action=Solicitud&id=<?php echo $_GET['id']; ?>"  type="button" class="btn btn-large btn-block btn-danger">Aceptar Solicitud</a>
-          <a type="button" href="../Controlador/SolicitudController.php?action=SolicitudRe&id=<?php echo $_GET['id']; ?>" class="btn btn-large btn-block btn-succes">Rechazar</a>
-          
-          </form>
+                <br>
+                <form  method="post" id="frmLogin">
+                <div class="field-wrap">
+                <input type="text" hidden name="id" value="<?php echo $_GET['id']; ?>" required autocomplete="off"/>
+                    <textarea name="observaciones" id="observaciones" required autocomplete="off"></textarea>
+                    <label>
+                       Observaciones<span class="req">*</span>
+                    </label>
+                </div>
+                <br/>
+                <div class="field-wrap">
+
+                    <div class="select">
+                    <select name="estado" id="estado" >
+                        <option value="">Seleccione</option>
+                        <option value="Aceptada">Aceptada</option>
+                        <option value="Solicitada">Solicitada</option>
+                        <option value="Proceso de Visita">Proceso de Visita</option>
+                        <option value="Rechazada">Rechazada</option>
+                    </select>
+                    </div>
+                    <label>
+                        Estado de Solicitud<span class="req">*</span>
+                    </label>
+                </div>
+                <br/>
+          <input type="submit" value="Guardar" class="btn btn-large btn-block btn-success">
+          <a href="javascript:window.history.back();" class="btn btn-large btn-block btn-danger">Volver</a>
+            </form>
       </div><!-- tab-content -->
 </div> <!-- /form -->
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -241,7 +263,29 @@ require "../Controlador/SolicitudController.php";
         }
     }
 </script>
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#frmLogin').on('submit', function (e) {
+            if (!e.isDefaultPrevented()) {
+                var formData = $(this).serialize(); //Serializamos los campos del formulario
+                $.ajax({
+                    type        : 'POST', // Metodo de Envio
+                    url         : '../Controlador/SolicitudController.php?action=Solicitud', // Ruta del envio
+                    data        : formData, // our data object
+                    encode      : true
+                })
+                    .done(function(data) {
+                        if (data.indexOf('1') != -1){
+                            window.location.href = "Solicitudes.php?respuesta=correcto";
+                              }else{
+                            $('#results').html(data);
+                        }
+                    });
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 
 </body>
 

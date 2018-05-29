@@ -110,10 +110,11 @@ require "../Controlador/SolicitudController.php";
 
             <form  method="post" id="frmLogin"  >
             <div class="field-wrap">
-                <label>
-                    Estado: <?php echo SolicitudController::Estado($_SESSION['DataPersona']['Id']) ?>
-                </label>
+               <?php echo SolicitudController::Estado($_SESSION['DataPersona']['Id']) ?>  
+                <br/>
+                <br/>
             </div>
+            
             </form>
         </div>
 
