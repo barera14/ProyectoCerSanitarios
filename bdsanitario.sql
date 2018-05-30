@@ -106,7 +106,9 @@ CREATE TABLE `datosformulario` (
   `Regimen` enum('Comun','Simplicado') NOT NULL,
   `Actividad_Economica` text NOT NULL,
   `Estaado` enum('Solicitada','Aceptada','Rechazada') NOT NULL,
-  `Cliente` int(11) NOT NULL
+  `Cliente` int(11) NOT NULL,
+  `Observacion` text(500) DEFAULT NULL,
+   `Archivo` text(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
