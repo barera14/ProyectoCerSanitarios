@@ -29,6 +29,7 @@ class FormularioSolicitud extends db_abstract_class
     private $Estaado;
     private $Cliente;
     private $Observacion;
+    private $Archivo;
 
 
     public function __construct($FormularioSo_data=array())
@@ -58,6 +59,7 @@ class FormularioSolicitud extends db_abstract_class
             $this->Estaado="";
             $this->Cliente="";
             $this->Observacion="";
+            $this->Archivo="";
         }
     }
 
@@ -87,6 +89,7 @@ class FormularioSolicitud extends db_abstract_class
             $tmp->Estaado = $getrow['Estaado'];
             $tmp->Cliente  = $getrow['Cliente'];
             $tmp->Observacion=$getrow['Observacion'];
+            $tmp->Archivo=$getrow['Archivo'];
             $tmp->Disconnect();
             return $tmp;
         }else{
@@ -104,6 +107,18 @@ class FormularioSolicitud extends db_abstract_class
     /**
      * @param mixed $idFormulario
      */
+    public function setArchivo($Archivo)
+    {
+        $this->Archivo = $Archivo;
+    }
+    public function getArchivo()
+    {
+        return $this->Archivo;
+    }
+
+    /**
+     * @param mixed $idFormulario
+     */
     public function setIdFormulario($idFormulario)
     {
         $this->idFormulario = $idFormulario;
@@ -115,7 +130,7 @@ class FormularioSolicitud extends db_abstract_class
     {
         return $this->Observacion;
     }
-
+    
     /**
      * @param mixed $Observacion
      */
@@ -425,6 +440,7 @@ class FormularioSolicitud extends db_abstract_class
             $persona->Estaado = $valor['Estaado'];
             $persona->Cliente = $valor['Cliente'];
             $persona->Observacion=$valor['Observacion'];
+            $persona->Archivo=$valor['Archivo'];
             array_push($arrPacientes, $persona);
         }
         $tmp->Disconnect();
@@ -463,10 +479,11 @@ class FormularioSolicitud extends db_abstract_class
 
     public function editarEstado()
     {
-        $this->updateRow("UPDATE datosformulario SET Estaado = ?, Observacion=? WHERE Cliente = ?", array(
+        $this->updateRow("UPDATE datosformulario SET Estaado = ?, Observacion=?, Archivo=? WHERE Cliente = ?", array(
 
             $this->Estaado,
             $this->Observacion,
+            $this->Archivo,
             $this->Cliente
         ));
         $this->Disconnect();

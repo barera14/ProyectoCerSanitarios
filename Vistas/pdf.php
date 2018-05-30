@@ -208,7 +208,13 @@ require "../Controlador/SolicitudController.php";
                     </tbody>
                 </table>
                 <br>
-                <form  method="post" id="frmLogin">
+                <form  method="post" id="frmLogin" enctype="multipart/form-data">
+                <div class="field-wrap">
+                <input type="file"  name="archivo"  required autocomplete="off"/>
+                     <label>
+                    Certificado<span class="req">*</span>
+                    </label>
+                </div>
                 <div class="field-wrap">
                 <input type="text" hidden name="id" value="<?php echo $_GET['id']; ?>" required autocomplete="off"/>
                     <textarea name="observaciones" id="observaciones" required autocomplete="off"></textarea>

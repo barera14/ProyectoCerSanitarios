@@ -25,9 +25,24 @@ class SolicitudController
     static public function cambiarEstado(){
         try {
             $ObjEspecialidad = FormularioSolicitud::buscarForId($_POST['id']);
+            $cedula=$_POST['id'];
+            if (is_uploaded_file($_FILES['archivo']['tmp_name']))
+            {
+                $nombreDirectorio = "../Archivos/";
+                $Archivo_Certificado = $_FILES['archivo']['name'];
+
+                $nuevo_path="../Archivos/".$cedula."-".$Archivo_Certificado;
+
+                move_uploaded_file($_FILES['archivo']['tmp_name'], $nombreDirectorio.$cedula."-".$Archivo_Certificado);
+
+            } else{
+                echo ("No se ha podido subir el fichero");
+                //header("Location: ../Vista/createPersona.php?respuesta=errorFoto");
+            }
           $ObjEspecialidad->setEstaado($_POST['estado']);
           $ObjEspecialidad->setCliente($_POST['id']);
           $ObjEspecialidad->setObservacion($_POST['observaciones']);
+          $ObjEspecialidad->setArchivo($nuevo_path);
           $ObjEspecialidad->editarEstado();
            header("Location: ../Vistas/pdf.php?id=".$_POST['id']."&respuesta=correcto");
         } catch (Exception $e) {

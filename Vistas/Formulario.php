@@ -269,6 +269,7 @@ if( $_SESSION['validacion']==false){
                                                                 <iframe id="viewer2" frameborder="0" scrolling="no" width="350" height="400"></iframe>
                                                             </div>
 
+
                                                     </tr>
                                                     <tr valign="baseline" >
                                                         <h2> Certificado de Matricula Mercantil (PDF,JPG o PGJ)</h2>
