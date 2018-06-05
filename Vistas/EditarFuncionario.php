@@ -1,10 +1,10 @@
 <?php
 require "../Controlador/UsuarioController.php";
-if( $_SESSION['DataPersona']['cargo']=='Administrador'){
+// if( $_SESSION['DataPersona']['cargo']=='Administrador'){
 
-}else{
-   header("Location: index.php");
-}
+// }else{
+//    header("Location: index.php");
+// }
 
 ?>
 <!DOCTYPE html>
@@ -135,31 +135,33 @@ if( $_SESSION['DataPersona']['cargo']=='Administrador'){
 
 <div class="form">
 
-    <ul class="tab-group">
-        <li class="tab active"><a href="#signup">Regìstrar</a></li>
-        <li class="tab"><a href="#login">Ver Funcinarios</a></li>
-    </ul>
+  <style>
+            .form-mod{
+                position: absolute;
+                top:45px;
+                left:5px;   
+                color:  #a0b3b0;
+                 pointer-events: none;
+                font-size: 14px;
+            }
+            </style>
 
-    <div class="tab-content">
+    <div>
 
-
-        <div id="signup">
-
-
-            <h1>Registrar Funcionarios</h1>
+            <h1>Editar Funcionarios</h1>
 
             <form action="../Controlador/UsuarioController.php?action=crear" name="formulario" method="post">
 
                 <div class="top-row">
                     <div class="field-wrap">
-                        <label>
+                        <label class="form-mod">
                             Nombres<span class="req">*</span>
                         </label>
                         <input type="text" name="nom_user" required autocomplete="off" />
                     </div>
 
                     <div class="field-wrap">
-                        <label>
+                        <label class="form-mod">
                             Apellidos<span class="req">*</span>
                         </label>
                         <input type="text" name="ape_user" required autocomplete="off"/>
@@ -167,14 +169,14 @@ if( $_SESSION['DataPersona']['cargo']=='Administrador'){
                 </div>
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Cèdula de Ciudadanía<span class="req">*</span>
                     </label>
                     <input type="text" name="cc_user" required autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Correo Electrònico<span class="req">*</span>
                     </label>
                     <input type="email" name="correo_user"required autocomplete="off"/>
@@ -182,7 +184,7 @@ if( $_SESSION['DataPersona']['cargo']=='Administrador'){
 
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Direcciòn<span class="req">*</span>
                     </label>
                     <input type="text"  name="direc_user" required autocomplete="off"/>
@@ -190,13 +192,13 @@ if( $_SESSION['DataPersona']['cargo']=='Administrador'){
 
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Celular<span class="req">*</span>
                     </label>
                     <input type="text" name="celu_user" required autocomplete="off"/>
                 </div>
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Contraseña<span class="req">*</span>
                     </label>
 
@@ -210,31 +212,33 @@ if( $_SESSION['DataPersona']['cargo']=='Administrador'){
             </form>
 
         </div>
-        <div id="login">
-            <h1>Serviciós en linea</h1>
 
-            <table id="customers">
-                <thead>
-                <tr>
-                    <th hidden>id</th>
-                    <th>Nombres</th>
-                    <th>Cedula</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php echo UsuarioController::tablaPersona(); ?>
-                </tbody>
-            </table>
-
-            </div>
     </div><!-- tab-content -->
     </div>
 </div> <!-- /form -->
     
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+    $('.tab a').on('click', function (e) {
+  
+  e.preventDefault();
+  
+  $(this).parent().addClass('active');
 
+      
+     
+  $(this).parent().siblings().removeClass('active');
+  
+  target = $(this).attr('href');
+
+  $('.tab-content > div').not(target).hide();
+  
+  $(target).fadeIn(600);
+
+  
+});
+</script>
 
 <script>
     /* When the user clicks on the button,
@@ -258,7 +262,6 @@ if( $_SESSION['DataPersona']['cargo']=='Administrador'){
         }
     }
 </script>
-<script  src="js/index.js"></script>
 
 </body>
 

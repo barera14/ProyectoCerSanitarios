@@ -56,12 +56,15 @@ class UsuarioController
             $Contrasenamd5 = $_POST['pass_user'];
             $md5 = md5($Contrasenamd5);
             $arrayusuario['Contrasena']=$md5;
+            $arrayusuario['cargo']='Funcionario';
             $Usuarios = new Usuario($arrayusuario);
+            //echo $arrayusuario;
             $Usuarios->insertar2();
           
             $_SESSION['validacion'] = false;
             header("Location: ../Vistas/RegistroFuncionario.php?respuesta=correcto");
         }catch (Exception $w){
+            echo $w;
             header("Location: ../Vistas/RegistroFuncionario.php?respuesta=error");
 
         }
@@ -78,6 +81,7 @@ class UsuarioController
             $Contrasenamd5 = $_POST['pass_user'];
             $md5 = md5($Contrasenamd5);
             $arrayusuario['Contrasena']=$md5;
+            $arrayusuario['cargo']='usuario';
             $Usuarios = new cliente($arrayusuario);
             $Usuarios->insertar();
            
@@ -101,7 +105,7 @@ class UsuarioController
             $htmlSelect .= "<td>";
             $htmlSelect .= "<a href='?id=".$Usuario->getId()." type='button' data-toggle='tooltip' title='Ver Persona' class='btn docs-tooltip btn-danger btn-xs' ><i class='fa fa-eye'></i></a>";
             $htmlSelect .= "<spam> </spam>";
-            $htmlSelect .= "<a href='RegistroFuncionario.php?id=".$Usuario->getIdfuncionario()."' type='button' data-toggle='tooltip' title='Actualizar' class='btn docs-tooltip btn-primary btn-xs'><i class='fa fa-edit'></i></a>";
+            $htmlSelect .= "<a href='EditarFuncionario.php?id=".$Usuario->getIdfuncionario()."' type='button' data-toggle='tooltip' title='Actualizar' class='btn docs-tooltip btn-primary btn-xs'><i class='fa fa-edit'></i></a>";
             $htmlSelect .= "<spam> </spam>";
             $htmlSelect .= "<a href='../Controlador/UsuarioController.php?action=Delete&id=".$Usuario->getIdfuncionario()."' type='button' data-toggle='tooltip' title='Eliminar' class='btn docs-tooltip btn-succes btn-xs'><i class='fa fa-minus-square'></i></a>";
             $htmlSelect .= "</td>";

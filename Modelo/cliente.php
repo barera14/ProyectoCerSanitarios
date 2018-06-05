@@ -11,6 +11,7 @@ class cliente extends db_abstract_class
     private $Direccion;
     private $Celular;
     private $Contrasena;
+    private $cargo;
 
     public function __construct($cliente_data=array())
     {
@@ -28,10 +29,26 @@ class cliente extends db_abstract_class
             $this->Direccion = "";
             $this->Celular = "";
             $this->Contrasena="";
+            $this->cargo="";
 
         }
     }
 
+     /**
+     * @return string
+     */
+    public function getcargo()
+    {
+        return $this->cargo;
+    }
+
+    /**
+     * @param string $Id
+     */
+    public function setcargo($cargo)
+    {
+        $this->cargo = $cargo;
+    }
     /**
      * @return string
      */
@@ -133,7 +150,7 @@ public function setContrasena(string $Contrasena)
 }
     public  function insertar()
     {
-        $this->insertRow("INSERT INTO cliente VALUES(NULL,?,?,?,?,?,?,?)",array(
+        $this->insertRow("INSERT INTO cliente VALUES(NULL,?,?,?,?,?,?,?,?)",array(
 
             $this->Nombre,
             $this->Apellido,
@@ -142,7 +159,7 @@ public function setContrasena(string $Contrasena)
             $this->Direccion,
             $this->Celular,
             $this->Contrasena,
-
+            $this->cargo
         ));
         $this->Disconnect();
     }

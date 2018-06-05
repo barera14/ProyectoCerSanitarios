@@ -1,7 +1,12 @@
 <?php
-session_start();
 error_reporting(0);
 require "../Controlador/SolicitudController.php";
+require "../Controlador/UsuarioController.php";
+if( $_SESSION['DataPersona']['cargo']=='usuario'){
+
+}else{
+   header("Location: index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" >

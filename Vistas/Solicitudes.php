@@ -1,5 +1,10 @@
 <?php
 require "../Controlador/UsuarioController.php";
+if( $_SESSION['DataPersona']['cargo']=='Funcionario'){
+
+}else{
+   header("Location: index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -122,6 +127,8 @@ require "../Controlador/UsuarioController.php";
      
             <div id="login">
                 <h1>Lista de Solicitudes</h1>
+                <input type="text" id="buscar" placeholder="Buscar">
+                <br>
                 <table id="customers"  name="mytable">
                     <thead>
                     <tr>

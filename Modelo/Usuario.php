@@ -14,6 +14,7 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
     private $Direccion;
     private $Celular;
     private $Contrasena;
+    private $cargo;
 
     public function __construct($usuario_data=array())
     {
@@ -32,6 +33,7 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
             $this->Direccion = "";
             $this->Celular = "";
             $this->Contrasena="";
+            $this->cargo="";
 
         }
     }
@@ -51,7 +53,21 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
     {
         $this->Id = $Id;
     }
+ /**
+     * @return string
+     */
+    public function getcargo()
+    {
+        return $this->cargo;
+    }
 
+    /**
+     * @param string $Id
+     */
+    public function setcargo($cargo)
+    {
+        $this->cargo = $cargo;
+    }
     /**
      * @return string
      */
@@ -183,7 +199,7 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
 
     public function insertar2()
     {
-        $this->insertRow("INSERT INTO funcionario VALUES(NULL,?,?,?,?,?,?,?)",array(
+        $this->insertRow("INSERT INTO funcionario VALUES(NULL,?,?,?,?,?,?,?,?)",array(
 
             $this->Nombre,
             $this->Apellido,
@@ -192,6 +208,7 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
             $this->Direccion,
             $this->Celular,
             $this->Contrasena,
+            $this->cargo
 
         ));
         $this->Disconnect();
@@ -207,7 +224,7 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
             $this->Correo,
             $this->Direccion,
             $this->Celular,
-            $this->Contrasena,
+            $this->Contrasena
 
         ));
         $this->Disconnect();
@@ -218,7 +235,7 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
         $this->updateRow("UPDATE funcionario SET Nombres = ?, Cedula = ? WHERE idfuncionario = ?",array(
 
             $this->Nombres,
-            $this->Cedula,
+            $this->Cedula
         ));
         $this->Disconnect();
     }
@@ -242,6 +259,7 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
             $tmp->Direccion = $getrow['Direccion'];
             $tmp->Celular = $getrow['Celular'];
             $tmp->Contrasena = $getrow['Contrasena'];
+            $tmp->cargo=$getrow['cargo'];
             $tmp->Disconnect();
             return $tmp;
         }else{
@@ -287,6 +305,7 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
             $persona->Direccion = $valor['Direccion'];
             $persona->Celular = $valor['Celular'];
             $tmp->Contrasena = $valor['Contrasena'];
+            
             array_push($arrPacientes, $persona);
         }
         $tmp->Disconnect();
