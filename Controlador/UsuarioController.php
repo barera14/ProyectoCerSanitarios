@@ -121,9 +121,8 @@ class UsuarioController
             $htmlSelect .= "<td>" . $Usuario->getNombre() . " ".$Usuario->getApellido()."</td>";
             $htmlSelect .= "<td>".$Usuario->getCedula()."</td>";
             $htmlSelect .= "<td>";
-            if(count($getrows) >= 1){
             $htmlSelect .= "<a href='pdf.php?id=".$Usuario->getId()."' type='button' id='myBtn' data-toggle='tooltip' title='Ver Solicitud' class='btn docs-tooltip btn-danger btn-xs'   ><i class='fa fa-eye'></i></a>";
-        }
+
             $htmlSelect .= "<spam> </spam>";
            // $htmlSelect .= "<a href='../Controlador/UsuarioController.php?action=Delete&id=".$Usuario->getId()."' type='button' data-toggle='tooltip' title='Eliminar' class='btn docs-tooltip btn-succes btn-xs'><i class='fa fa-minus-square'></i></a>";
             $htmlSelect .= "</td>";

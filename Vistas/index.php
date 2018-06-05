@@ -115,9 +115,6 @@ error_reporting(0);
                         Contraseña<span class="req">*</span>
                     </label>
                     <input type="PASSWORD" name="pass_user" required autocomplete="off"/>
-
-            fzc
-
                 </div>
 
 

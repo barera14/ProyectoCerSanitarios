@@ -1,0 +1,1 @@
+UPDATE datosformulario SET Nombres=?,Cedula=?,CiudadExpedicion=?,RazonSocial=?,Nit=?,Direccion=?,Barrio=?,Comuna=?,Vereda=?,Corregimiento=?,Telefono=?,Regimen=?,Actividad_Economica=? WHERE Cliente = ?

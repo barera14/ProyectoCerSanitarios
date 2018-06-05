@@ -31,7 +31,6 @@ require "../Controlador/SolicitudController.php";
         color:white;
     }
 </style>
-  <br>
   <div id="cabeza">
   <div class="dropdown">
 <button onclick='myFunctions()' class='dropbtn'><?php echo ($_SESSION['DataPersona']['Nombre'])." ".($_SESSION['DataPersona']['Apellido']); ?></button>
@@ -40,8 +39,7 @@ require "../Controlador/SolicitudController.php";
     <a href='../Controlador/UsuarioController.php?action=CerrarSession'>Cerrar Sesion</a>
     </div>
 </div>
-  <font color="Olive" face=",arialComic Sans MS">
-  <?php if(!empty($_GET['respuesta'])){ ?>
+<?php if(!empty($_GET['respuesta'])){ ?>
         <?php if ($_GET['respuesta'] == "correcto"){ ?>
             <script>
                 alert("Registro Exitoso");
@@ -52,6 +50,7 @@ require "../Controlador/SolicitudController.php";
             </script>
         <?php }  ?>
     <?php } ?>
+  <font color="Olive" face=",arialComic Sans MS">
   <h1><center><font color="white">Certicado Sanitario Yopal</font></center></h1>
   </font></div>  
   <style>
@@ -208,39 +207,61 @@ require "../Controlador/SolicitudController.php";
                     </tbody>
                 </table>
                 <br>
-                <form  method="post" id="frmLogin" enctype="multipart/form-data">
+                <form  method="post" id="frmLogin" action="../Controlador/SolicitudController.php?action=Solicitud" enctype="multipart/form-data">
+                <?php if($DataEsta->getEstaado() == "Proceso de Visita"){   ?>
                 <div class="field-wrap">
                 <input type="file"  name="archivo"  required autocomplete="off"/>
                      <label>
                     Certificado<span class="req">*</span>
                     </label>
                 </div>
+                <?php }?>
                 <div class="field-wrap">
                 <input type="text" hidden name="id" value="<?php echo $_GET['id']; ?>" required autocomplete="off"/>
-                    <textarea name="observaciones" id="observaciones" required autocomplete="off"></textarea>
+                <?php if($DataEsta->getEstaado() != "Aceptada"){   ?>  
+                <textarea name="observaciones" id="observaciones" required autocomplete="off"><?php echo $DataEsta->getObservacion();?></textarea>
+                <?php }else{   ?>
+                    <textarea name="observaciones" id="observaciones" autocomplete="off" readonly> <?php echo $DataEsta->getObservacion();?></textarea>
+                    <?php }?>
                     <label>
                        Observaciones<span class="req">*</span>
                     </label>
                 </div>
                 <br/>
                 <div class="field-wrap">
-
+                <?php if($DataEsta->getEstaado() != "Aceptada"){   ?>  
                     <div class="select">
                     <select name="estado" id="estado" >
-                        <option value="">Seleccione</option>
-                        <option value="Aceptada">Aceptada</option>
-                        <option value="Solicitada">Solicitada</option>
-                        <option value="Proceso de Visita">Proceso de Visita</option>
-                        <option value="Rechazada">Rechazada</option>
+                        <option value="">Seleccione</option> 
+                        <?php if($DataEsta->getEstaado() == "Solicitada"){   ?>
+                            <option value="Proceso de Visita">Proceso de Visita</option>
+                        <?php }else if($DataEsta->getEstaado() == "Proceso de Visita"){   ?>
+                            <option value="Aceptada" >Aceptada</option>
+                        <?php }else{ ?>
+                            <option value="Solicitada">Solicitada</option>
+                        <?php }?>
+                        <option value="Rechazada"<?php if($DataEsta->getEstaado() == "Rechazada"){ echo "selected";  }?>>Rechazada</option>
                     </select>
                     </div>
                     <label>
                         Estado de Solicitud<span class="req">*</span>
                     </label>
                 </div>
+                <?php }else{?>
+                <div class="field-wrap">
+                <spam type="text" style="font-size:25px; position:adsolute; left:20px;" name="estado" id="estado" readonly  required autocomplete="off"/> <?php echo $DataEsta->getEstaado(); ?></spam>
+                <br>
+                    <label class="form-mod">
+                    Estado de Solicitud<span class="req">*</span>
+                    </label>
+                  
+                </div>
+                <?php }?>
                 <br/>
+                <?php if($DataEsta->getEstaado() != "Aceptada"){   ?>  
           <input type="submit" value="Guardar" class="btn btn-large btn-block btn-success">
-          <a href="javascript:window.history.back();" class="btn btn-large btn-block btn-danger">Volver</a>
+                <?php }?>
+          <a href="javascript:window.location.href='Solicitudes.php';" class="btn btn-large btn-block btn-danger">Volver</a>
             </form>
       </div><!-- tab-content -->
 </div> <!-- /form -->
@@ -270,27 +291,27 @@ require "../Controlador/SolicitudController.php";
     }
 </script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#frmLogin').on('submit', function (e) {
-            if (!e.isDefaultPrevented()) {
-                var formData = $(this).serialize(); //Serializamos los campos del formulario
-                $.ajax({
-                    type        : 'POST', // Metodo de Envio
-                    url         : '../Controlador/SolicitudController.php?action=Solicitud', // Ruta del envio
-                    data        : formData, // our data object
-                    encode      : true
-                })
-                    .done(function(data) {
-                        if (data.indexOf('1') != -1){
-                            window.location.href = "Solicitudes.php?respuesta=correcto";
-                              }else{
-                            $('#results').html(data);
-                        }
-                    });
-                event.preventDefault();
-            }
-        });
-    });
+    // $(document).ready(function() {
+    //     $('#frmLogin').on('submit', function (e) {
+    //         if (!e.isDefaultPrevented()) {
+    //             var formData = $(this).serialize(); //Serializamos los campos del formulario
+    //             $.ajax({
+    //                 type        : 'POST', // Metodo de Envio
+    //                 url         : '../Controlador/SolicitudController.php?action=Solicitud', // Ruta del envio
+    //                 data        : formData, // our data object
+    //                 encode      : true
+    //             })
+    //                 .done(function(data) {
+    //                     if (data.indexOf('1') != -1){
+    //                         window.location.href = "Solicitudes.php?respuesta=correcto";
+    //                           }else{
+    //                         $('#results').html(data);
+    //                     }
+    //                 });
+    //             event.preventDefault();
+    //         }
+    //     });
+    // });
 </script>
 
 </body>

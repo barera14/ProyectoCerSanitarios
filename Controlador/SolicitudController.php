@@ -20,6 +20,8 @@ class SolicitudController
             SolicitudController::crearSolicitud();
         }else if($action=="Solicitud"){
             SolicitudController::cambiarEstado();
+        }else if($action=="EditarSolicitud"){
+            SolicitudController::EditarSolicitud();
         }
     }
     static public function cambiarEstado(){
@@ -52,8 +54,9 @@ class SolicitudController
     static public function crearSolicitud(){
         try{
             $tmp = new cliente();
+            $cedula=$_POST['cedula'];
             $arrayusuario = array();
-            $arrayusuario['SolicitudNo'] = 12345;
+            $arrayusuario['SolicitudNo'] = "001".$cedula;
             $arrayusuario['Nombres'] = $_POST['nombre'];
             $arrayusuario['Cedula'] = $_POST['cedula'];
             $arrayusuario['CiudadExpedicion'] = $_POST['ciudad_expe'];
@@ -90,6 +93,34 @@ class SolicitudController
 
         }
     }
+    static public function EditarSolicitud(){
+        try{
+            $tmp = new cliente();
+            $arrayusuario = array();
+            $arrayusuario['Nombres'] = $_POST['nombre'];
+            $arrayusuario['Cedula'] = $_POST['cedula'];
+            $arrayusuario['CiudadExpedicion'] = $_POST['ciudad_expe'];
+            $arrayusuario['RazonSocial'] = $_POST['razon'];
+            $arrayusuario['Nit']= $_POST['nit'];
+            $arrayusuario['Direccion']= $_POST['direccion'];
+            $arrayusuario['Barrio']= $_POST['barrio'];
+            $arrayusuario['Comuna']= $_POST['comuna'];
+            $arrayusuario['Vereda']= $_POST['vereda'];
+            $arrayusuario['Corregimiento']= $_POST['Corregimiento'];
+            $arrayusuario['Telefono']= $_POST['telefono'];
+            $arrayusuario['Regimen']= $_POST['regimen'];
+            $arrayusuario['Actividad_Economica']= $_POST['actividad'];
+            $arrayusuario['Cliente']= $_POST['id'];
+     //  var_dump($arrayusuario);
+            $Solicitudes = new FormularioSolicitud($arrayusuario);
+            $Solicitudes->editar();
+             header("Location: ../Vistas/InformacionEstadoSolicitud.php?respuesta=correcto");
+        }catch (Exception $w){
+            echo $w;
+           header("Location: ../Vistas/Formulario.php?respuesta=error");
+
+        }
+    }
     public function Estado ($id){
         $arrayF= FormularioSolicitud::buscar("SELECT * FROM datosformulario WHERE Cliente ='$id'");
 
@@ -100,7 +131,16 @@ class SolicitudController
             $htmlSelect .="<br/>";
             $htmlSelect .="<br/>";
             $htmlSelect .="<label>Observaciòn:";
-            $htmlSelect .= "<spam>".$valor->getObservacion()."</spam> </label>";
+            if($valor->getObservacion()==null){
+                $htmlSelect .= "<spam> Ninguna</spam> </label>";
+            }else{
+                $htmlSelect .= "<spam>".$valor->getObservacion()."</spam> </label>";
+            }
+            $htmlSelect .="<br/>";
+            $htmlSelect .="<br/>";
+            $htmlSelect .="<br/>";
+            $htmlSelect .="<br/>";
+           
         }
         return  $htmlSelect;
     }
@@ -205,7 +245,16 @@ class SolicitudController
             header("Location: ../Vista/UpdateSolicitud.php?respuesta=error");
         }
     }
-
+    static public function eliminar(){
+        try {
+            $id=$_GET['id'];
+            $Solicitud = new FormularioSolicitud();
+            $Solicitud->eliminar($id);
+            header("Location: ../Vistas/Formulario.php");
+        } catch (Exception $e) {
+            header("Location: ../Vistas/Formulario.php.php?respuesta=error");
+        }
+    }
 
 
 }

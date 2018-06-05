@@ -490,15 +490,28 @@ class FormularioSolicitud extends db_abstract_class
     }
     public function editar()
     {
- $this->updateRow("UPDATE datosformulario SET Estaado = ? WHERE idFormulario = ?", array(
-
-            $this->Estaado
+        $this->updateRow("UPDATE datosformulario SET Nombres = ? ,Cedula = ?,CiudadExpedicion = ? ,RazonSocial = ?,Nit = ?,Direccion = ?,Barrio = ?,Comuna = ?,Vereda = ?,Corregimiento = ?,Telefono = ?,Regimen = ?,Actividad_Economica = ? WHERE Cliente = ?", array(
+            $this->Nombres,
+            $this->Cedula,
+            $this->CiudadExpedicion,
+            $this->RazonSocial,
+            $this->Nit,
+            $this->Direccion,
+            $this->Barrio,
+            $this->Comuna,
+            $this->Vereda,
+            $this->Corregimiento,
+            $this->Telefono,
+            $this->Regimen,
+            $this->Actividad_Economica,
+            $this->Cliente
         ));
         $this->Disconnect();
     }
 
     public function eliminar($id)
     {
-        // TODO: Implement eliminar() method.
+        $this->deleteRow("DELETE FROM datosformulario WHERE Cliente = ?", array($id));
+        $this->deleteRow("DELETE FROM solicitud WHERE Idcliente = ?", array($id));
     }
 }

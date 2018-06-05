@@ -119,10 +119,10 @@ require "../Controlador/UsuarioController.php";
     <div class="form">
       
         <div>
-           
+     
             <div id="login">
                 <h1>Lista de Solicitudes</h1>
-                <table id="customers">
+                <table id="customers"  name="mytable">
                     <thead>
                     <tr>
                         <th hidden>id</th>
@@ -143,9 +143,9 @@ require "../Controlador/UsuarioController.php";
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script>
-    /* When the user clicks on the button,
-     toggle between hiding and showing the dropdown content */
+
     function myFunctions() {
         document.getElementById("myDropdown").classList.toggle("show");
     }

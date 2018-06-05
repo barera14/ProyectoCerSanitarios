@@ -11,6 +11,7 @@ require "../Controlador/SolicitudController.php";
     <title> sanitario</title>
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -87,7 +88,7 @@ require "../Controlador/SolicitudController.php";
 <?php if(!empty($_GET['respuesta'])){ ?>
     <?php if ($_GET['respuesta'] == "correcto"){ ?>
         <script>
-            alert("Registro Exitoso, Ahora espere nuestra respuesta del administrador del sistema");
+            alert("Registro Exitoso");
         </script>
     <?php }else { ?>
         <script>
@@ -104,15 +105,16 @@ require "../Controlador/SolicitudController.php";
 
     <div class="tab-content">
         <div id="signup">
-
+        <?php  $DataPersona = SolicitudController::buscarID($_SESSION['DataPersona']['Id']);  ?>
 
             <h1>Estado de Solicitud</h1>
 
             <form  method="post" id="frmLogin"  >
             <div class="field-wrap">
                <?php echo SolicitudController::Estado($_SESSION['DataPersona']['Id']) ?>  
-                <br/>
-                <br/>
+               <?php if($DataPersona->getEstaado()=="Rechazada"){ ?>
+            <a href="javascript:window.location.href='../Controlador/SolicitudController.php?action=Delete&id=<?=$_SESSION['DataPersona']['Id']?>';" class='btn btn-large btn-block btn-success'>Crear Solicitud</a>"
+          <?php  } ?>
             </div>
             
             </form>
@@ -120,36 +122,37 @@ require "../Controlador/SolicitudController.php";
 
         <div id="login">
             <h1>Editar Información</h1>
-            <?php  $DataPersona = SolicitudController::buscarID($_SESSION['DataPersona']['Id']);  ?>
+          
 
-            <form action="../Controlador/SolicitudController.php?action=Editar" name="formulario" method="post">
+            <form action="../Controlador/SolicitudController.php?action=EditarSolicitud" name="formulario" method="post">
 
+            <style>
+            .form-mod{
+                position: absolute;
+                top:45px;
+                left:5px;   
+                color:  #a0b3b0;
+                 pointer-events: none;
+                font-size: 14px;
+            }
+            </style>
                 <div class="field-wrap">
-
-                    <label>
-                        Solicitud No<span class="req">* (Automatico) </span>
-                    </label>
-                    <input type="text" name="Solicitud No" readonly="readonly"<span class="req"></span>
-
-                </div>
-
-                <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Nombres<span class="req">*</span>
                     </label>
                     <input type="text" name="nombre"  value="<?php echo $DataPersona->getNombres(); ?>"   required autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Cédula de Ciudadanía<span class="req">*</span>
                     </label>
-                    <input type="number" id="cedula" name="nombre"  value="<?php echo $DataPersona->getCedula(); ?>"  required>
+                    <input type="number" id="cedula" name="cedula"  value="<?php echo $DataPersona->getCedula(); ?>"  required>
 
                 </div>
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Ciudad de Expediciòn<span class="req">*</span>
                     </label>
                     <input type="text" name="ciudad_expe"required value="<?php echo $DataPersona->getCiudadExpedicion(); ?>"  autocomplete="off"/>
@@ -157,35 +160,35 @@ require "../Controlador/SolicitudController.php";
 
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Razón Social<span class="req">*</span>
                     </label>
                     <input type="text" name="razon" value="<?php echo $DataPersona->getRazonSocial(); ?>" required autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Nit<span class="req">*</span>
                     </label>
                     <input type="text" name="nit"  value="<?php echo $DataPersona->getNit(); ?>" required autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                        Dirección <span class="req">*</span>
                     </label>
                     <input type="text" name="direccion" value="<?php echo $DataPersona->getDireccion(); ?>" required autocomplete="off"/>
                 </div>
                 <div class="top-row">
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Barrio<span class="req">*</span>
                     </label>
                     <input type="text" name="barrio" value="<?php echo $DataPersona->getBarrio(); ?>"  autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                        Comuna <span class="req">*</span>
                     </label>
                     <input type="text" name="comuna" value="<?php echo $DataPersona->getComuna(); ?>"  autocomplete="off"/>
@@ -193,21 +196,21 @@ require "../Controlador/SolicitudController.php";
                 </div>
                 <div class="top-row">
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Vereda<span class="req">*</span>
                     </label>
                     <input type="text" name="vereda"  value="<?php echo $DataPersona->getVereda(); ?>"  autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Corregimiento<span class="req">*</span>
                     </label>
                     <input type="text" name="Corregimiento"  value="<?php echo $DataPersona->getCorregimiento(); ?>"  autocomplete="off"/>
                 </div>
                 </div>
                 <div class="field-wrap">
-                    <label>
+                    <label class="form-mod">
                         Teléfono<span class="req">*</span>
                     </label>
                     <input type="text" name="telefono" id="telefono" value="<?php echo $DataPersona->getTelefono(); ?>"  required autocomplete="off"/>
@@ -238,7 +241,7 @@ require "../Controlador/SolicitudController.php";
                     <input hidden type="text" id="id" name="id" value="<?=$_SESSION['DataPersona']['Id']?>">
                 </div>
 
-                <input type="submit" value="Siguiente" id="Enviar" name="siguiente" class="button button-block"/>
+                <input type="submit" value="Guardar" id="Enviar" name="siguiente" class="button button-block"/>
 
             </form>
         </div>
@@ -250,9 +253,26 @@ require "../Controlador/SolicitudController.php";
 
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+    $('.tab a').on('click', function (e) {
+  
+  e.preventDefault();
+  
+  $(this).parent().addClass('active');
 
-<script  src="js/index.js"></script>
+      
+     
+  $(this).parent().siblings().removeClass('active');
+  
+  target = $(this).attr('href');
 
+  $('.tab-content > div').not(target).hide();
+  
+  $(target).fadeIn(600);
+
+  
+});
+</script>
 <script>
     function myFunctions() {
         document.getElementById("myDropdown").classList.toggle("show");

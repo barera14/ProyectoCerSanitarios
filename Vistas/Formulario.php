@@ -263,7 +263,7 @@ if( $_SESSION['validacion']==false){
 
                                                         <h2> Cédula de Ciudadanía (PDF,JPG o PGJ)</h2>
 
-                                                            <p><input id="Archivo_recibo" type="file" name="Archivo_recibo"/>&nbsp;
+                                                            <p><input required id="Archivo_recibo" type="file" name="Archivo_recibo"/>&nbsp;
                                                                 <a href="" onclick="PreviewImage2(); mostrar2(this, 'oculto2'); return false" />Ver</a></p>
                                                             <div id="oculto2" style="clear:both; display: none">
                                                                 <iframe id="viewer2" frameborder="0" scrolling="no" width="350" height="400"></iframe>
@@ -274,7 +274,7 @@ if( $_SESSION['validacion']==false){
                                                     <tr valign="baseline" >
                                                         <h2> Certificado de Matricula Mercantil (PDF,JPG o PGJ)</h2>
 
-                                                            <p><input id="Archivo_carnet" type="file" name="Archivo_carnet"/>&nbsp;
+                                                            <p><input required id="Archivo_carnet" type="file" name="Archivo_carnet"/>&nbsp;
                                                                 <a href="" onclick="PreviewImage3(); mostrar3(this, 'oculto3'); return false" />Ver</a></p>
                                                             <div id="oculto3" style="clear:both; display: none">
                                                                 <iframe id="viewer3" frameborder="0" scrolling="no" width="350" height="400"></iframe>
@@ -284,7 +284,7 @@ if( $_SESSION['validacion']==false){
                                                     <tr valign="baseline" >
                                                         <h2>Conepto de Uso de Suelo (PDF,JPG O PGJ)</h2>
 
-                                                            <p><input id="Archivo_poliza" type="file" name="Archivo_poliza"/>&nbsp;
+                                                            <p><input required id="Archivo_poliza" type="file" name="Archivo_poliza"/>&nbsp;
                                                                 <a href="" onclick="PreviewImage4(); mostrar4(this, 'oculto4'); return false" />Ver</a></p>
                                                             <div id="oculto4" style="clear:both; display: none">
                                                                 <iframe id="viewer4" frameborder="0" scrolling="no" width="350" height="400"></iframe>
@@ -294,7 +294,7 @@ if( $_SESSION['validacion']==false){
                                                     <tr valign="baseline" >
                                                         <h2> Formato de Rut (PDF,JPG o PGJ)</h2>
 
-                                                            <p><input id="Archivo_fotos" type="file" name="Archivo_fotos"/>&nbsp;
+                                                            <p><input required id="Archivo_fotos" type="file" name="Archivo_fotos"/>&nbsp;
                                                                 <a href="" onclick="PreviewImage5(); mostrar5(this, 'oculto5'); return false" />Ver</a></p>
                                                             <div id="oculto5" style="clear:both; display: none">
                                                                 <iframe id="viewer5" frameborder="0" scrolling="no" width="350" height="400"></iframe>
