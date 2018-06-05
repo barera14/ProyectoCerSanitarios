@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-05-2018 a las 06:23:06
+-- Tiempo de generación: 05-06-2018 a las 03:39:39
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -69,18 +69,23 @@ CREATE TABLE `cliente` (
   `Correo` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `Direccion` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `Celular` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `Contrasena` text COLLATE utf8_unicode_ci
+  `Contrasena` text COLLATE utf8_unicode_ci,
+  `cargo` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`Id`, `Nombre`, `Apellido`, `Cedula`, `Correo`, `Direccion`, `Celular`, `Contrasena`) VALUES
-(29, 'alejandro', 'bernal', 1116552281, 'alejo@gmail.com', 'calle 123', '3212634879', '25d55ad283aa400af464c76d713c07ad'),
-(64, 'tatiana', 'torres', 1116552281, 'tatis@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70'),
-(68, 'as', 'ds', 1234, '123@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70'),
-(69, 'alexi', 'perez', 1116552, '1234@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `cliente` (`Id`, `Nombre`, `Apellido`, `Cedula`, `Correo`, `Direccion`, `Celular`, `Contrasena`, `cargo`) VALUES
+(29, 'alejandro', 'bernal', 1116552281, 'alejo@gmail.com', 'calle 123', '3212634879', '25d55ad283aa400af464c76d713c07ad', 'usuario'),
+(64, 'tatiana', 'torres', 1116552281, 'tatis@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70', 'usuario'),
+(68, 'as', 'ds', 1234, '123@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70', 'usuario'),
+(69, 'alexi', 'perez', 1116552, '1234@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70', 'usuario'),
+(70, 'sara', 'molano', 12345678, '123@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70', 'usuario'),
+(71, 'prueba1p', 'pr', 2, '2@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70', 'usuario'),
+(72, '12', '12', 12, '12@gmail.com', '12', '12', 'c20ad4d76fe97759aa27a0c99bff6710', 'usuario'),
+(73, '1231', '21312', 1231, '123@gmail.copm', '2123', '123', '202cb962ac59075b964b07152d234b70', 'usuario');
 
 -- --------------------------------------------------------
 
@@ -95,7 +100,7 @@ CREATE TABLE `datosformulario` (
   `Nombres` varchar(250) DEFAULT NULL,
   `Cedula` bigint(20) DEFAULT NULL,
   `CiudadExpedicion` varchar(50) DEFAULT NULL,
-  `RazonSocial` int(250) DEFAULT NULL,
+  `RazonSocial` varchar(250) DEFAULT NULL,
   `Nit` bigint(20) DEFAULT NULL,
   `Direccion` varchar(200) NOT NULL,
   `Barrio` varchar(200) DEFAULT NULL,
@@ -105,19 +110,20 @@ CREATE TABLE `datosformulario` (
   `Telefono` varchar(200) NOT NULL,
   `Regimen` enum('Comun','Simplicado') NOT NULL,
   `Actividad_Economica` text NOT NULL,
-  `Estaado` enum('Solicitada','Aceptada','Rechazada') NOT NULL,
+  `Estaado` enum('Solicitada','Aceptada','Rechazada','Proceso de Visita') NOT NULL,
   `Cliente` int(11) NOT NULL,
-  `Observacion` text(500) DEFAULT NULL,
-   `Archivo` text(500) DEFAULT NULL
+  `Observacion` text NOT NULL,
+  `Archivo` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `datosformulario`
 --
 
-INSERT INTO `datosformulario` (`idFormulario`, `FechaRecibido`, `SolicitudNo`, `Nombres`, `Cedula`, `CiudadExpedicion`, `RazonSocial`, `Nit`, `Direccion`, `Barrio`, `Comuna`, `Vereda`, `Corregimiento`, `Telefono`, `Regimen`, `Actividad_Economica`, `Estaado`, `Cliente`) VALUES
-(5, '2018-04-23 02:42:55', 12345, '1', 1, '1', 1, 1, '1', '1', '1', '1', '1', '1', 'Comun', '1', 'Solicitada', 29),
-(26, '2018-05-01 04:11:02', 12345, 'as', 1234, '123', 123, 123, '123', '132', '123', '123', '123', '123', 'Comun', '123', 'Solicitada', 69);
+INSERT INTO `datosformulario` (`idFormulario`, `FechaRecibido`, `SolicitudNo`, `Nombres`, `Cedula`, `CiudadExpedicion`, `RazonSocial`, `Nit`, `Direccion`, `Barrio`, `Comuna`, `Vereda`, `Corregimiento`, `Telefono`, `Regimen`, `Actividad_Economica`, `Estaado`, `Cliente`, `Observacion`, `Archivo`) VALUES
+(5, '2018-06-04 21:16:59', 12345, '1', 1, '1', '1', 1, '1', '1', '1', '1', '1', '1', 'Comun', '1', 'Aceptada', 29, 'su solicitud fue aceptada', ''),
+(26, '2018-05-30 04:40:10', 12345, 'as', 1234, '123', '123', 123, '123', '132', '123', '123', '123', '123', 'Comun', '123', 'Aceptada', 69, 'okkk', ''),
+(28, '2018-06-05 00:38:03', 1123, 'empresa 1', 123, '123', '123', 123, '123', '123', 'no', 'no', 'no', '23232323', 'Simplicado', '123', 'Aceptada', 71, 'Proceso de visita', '../Archivos/71-IMG_1250.PNG');
 
 -- --------------------------------------------------------
 
@@ -133,15 +139,18 @@ CREATE TABLE `funcionario` (
   `Correo` varchar(500) NOT NULL,
   `Direccion` varchar(500) NOT NULL,
   `Celular` varchar(500) NOT NULL,
-  `Contrasena` text NOT NULL
+  `Contrasena` text NOT NULL,
+  `cargo` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `funcionario`
 --
 
-INSERT INTO `funcionario` (`idfuncionario`, `Nombre`, `Apellido`, `Cedula`, `Correo`, `Direccion`, `Celular`, `Contrasena`) VALUES
-(1, 'tatiana', 'torres', 1112, '12@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `funcionario` (`idfuncionario`, `Nombre`, `Apellido`, `Cedula`, `Correo`, `Direccion`, `Celular`, `Contrasena`, `cargo`) VALUES
+(1, 'tatiana', 'torres', 1112, '12@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70', 'Funcionario'),
+(3, '12', '12', 12, '12@gmail.cm', '12', '2', 'c20ad4d76fe97759aa27a0c99bff6710', 'Funcionario'),
+(4, '12', '12', 12, '12@gmail.com', '12', '12', 'c20ad4d76fe97759aa27a0c99bff6710', 'Funcionario');
 
 -- --------------------------------------------------------
 
@@ -165,7 +174,8 @@ CREATE TABLE `solicitud` (
 INSERT INTO `solicitud` (`Id`, `CedulaPdf`, `CamComerPdf`, `FormSuelo`, `RutPdf`, `Idcliente`) VALUES
 (7, '../Archivos/1116552281-1.png', '../Archivos/1116552281-1116552281_RB201802091116.pdf', '../Archivos/1116552281-2.png', '', 29),
 (12, '../Archivos/12-BD_ITIS2_2.pdf', '../Archivos/12-2.png', '../Archivos/12-3.png', '../Archivos/12-4.png', 62),
-(13, '../Archivos/1116552-1.png', '../Archivos/1116552-2.png', '../Archivos/1116552-3.png', '../Archivos/1116552-4.png', 69);
+(13, '../Archivos/1116552-1.png', '../Archivos/1116552-2.png', '../Archivos/1116552-3.png', '../Archivos/1116552-4.png', 69),
+(15, '../Archivos/2-30726891_824666671058393_6673011754886234112_n.jpg', '../Archivos/2-Certificado.pdf', '../Archivos/2-Doc1.pdf', '../Archivos/2-ejercicio entidad bancaria (1) (1).psc', 71);
 
 -- --------------------------------------------------------
 
@@ -256,22 +266,22 @@ ALTER TABLE `certificados`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `Id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `Id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT de la tabla `datosformulario`
 --
 ALTER TABLE `datosformulario`
-  MODIFY `idFormulario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idFormulario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT de la tabla `funcionario`
 --
 ALTER TABLE `funcionario`
-  MODIFY `idfuncionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idfuncionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `Id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT de la tabla `tbl_documentos`
 --
