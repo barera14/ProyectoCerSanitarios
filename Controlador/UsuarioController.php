@@ -158,22 +158,22 @@ class UsuarioController
             if($Usuario->getIdcliente()==$id){
             
             if($Usuario->getCedulaPdf()!=null){
-            $htmlSelect .= "<td ><a href='".$Usuario->getCedulaPdf()."'  download='".$Usuario->getCedulaPdf()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class=' docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
+            $htmlSelect .= "<td ><a href='".$Usuario->getCedulaPdf()."' target='_blank'  type='button' data-toggle='tooltip' title='Descargar Archivo' class=' docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
             }else {
                 $htmlSelect .= "<td >No hay archivo</td>";
             }
             if($Usuario->getCamComerPdf()!=null){
-                $htmlSelect .= "<td><a href='". $Usuario->getCamComerPdf()."'  download='". $Usuario->getCamComerPdf()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class='docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
+                $htmlSelect .= "<td><a href='". $Usuario->getCamComerPdf()."' target='_blank'  type='button' data-toggle='tooltip' title='Descargar Archivo' class='docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
             }else {
                     $htmlSelect .= "<td >No hay archivo</td>";
                 }
                 if($Usuario->getFormSuelo()!=null){
-                    $htmlSelect .= "<td><a href='". $Usuario->getFormSuelo()."'  download='". $Usuario->getFormSuelo()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class=' docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
+                    $htmlSelect .= "<td><a href='". $Usuario->getFormSuelo()."'  target='_blank' type='button' data-toggle='tooltip' title='Descargar Archivo' class=' docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
                 }else {
                         $htmlSelect .= "<td >No hay archivo</td>";
                     }
                     if($Usuario->getRutPdf()!=null){
-                        $htmlSelect .= "<td><a href='". $Usuario->getRutPdf()."'  download='". $Usuario->getRutPdf()."' type='button' data-toggle='tooltip' title='Descargar Archivo' class='docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
+                        $htmlSelect .= "<td><a href='". $Usuario->getRutPdf()."'  target='_blank'  type='button' data-toggle='tooltip' title='Descargar Archivo' class='docs-tooltip'><img  width='30' heigth='30' src='../Vistas/img/pdf.png'></a></td>";
                     }else {
                             $htmlSelect .= "<td >No hay archivo</td>";
                         }
