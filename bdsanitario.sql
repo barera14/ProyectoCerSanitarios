@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2018 a las 03:39:39
+-- Tiempo de generación: 12-06-2018 a las 05:22:18
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -122,7 +122,7 @@ CREATE TABLE `datosformulario` (
 
 INSERT INTO `datosformulario` (`idFormulario`, `FechaRecibido`, `SolicitudNo`, `Nombres`, `Cedula`, `CiudadExpedicion`, `RazonSocial`, `Nit`, `Direccion`, `Barrio`, `Comuna`, `Vereda`, `Corregimiento`, `Telefono`, `Regimen`, `Actividad_Economica`, `Estaado`, `Cliente`, `Observacion`, `Archivo`) VALUES
 (5, '2018-06-04 21:16:59', 12345, '1', 1, '1', '1', 1, '1', '1', '1', '1', '1', '1', 'Comun', '1', 'Aceptada', 29, 'su solicitud fue aceptada', ''),
-(26, '2018-05-30 04:40:10', 12345, 'as', 1234, '123', '123', 123, '123', '132', '123', '123', '123', '123', 'Comun', '123', 'Aceptada', 69, 'okkk', ''),
+(26, '2018-06-12 03:20:08', 12345, 'as', 1234, '123', '123', 123, '123', '132', '123', '123', '123', '123', 'Comun', '123', 'Aceptada', 69, 'validada', '../Archivos/69-Certificado.pdf'),
 (28, '2018-06-05 00:38:03', 1123, 'empresa 1', 123, '123', '123', 123, '123', '123', 'no', 'no', 'no', '23232323', 'Simplicado', '123', 'Aceptada', 71, 'Proceso de visita', '../Archivos/71-IMG_1250.PNG');
 
 -- --------------------------------------------------------
@@ -148,9 +148,9 @@ CREATE TABLE `funcionario` (
 --
 
 INSERT INTO `funcionario` (`idfuncionario`, `Nombre`, `Apellido`, `Cedula`, `Correo`, `Direccion`, `Celular`, `Contrasena`, `cargo`) VALUES
-(1, 'tatiana', 'torres', 1112, '12@gmail.com', '123', '123', '202cb962ac59075b964b07152d234b70', 'Funcionario'),
 (3, '12', '12', 12, '12@gmail.cm', '12', '2', 'c20ad4d76fe97759aa27a0c99bff6710', 'Funcionario'),
-(4, '12', '12', 12, '12@gmail.com', '12', '12', 'c20ad4d76fe97759aa27a0c99bff6710', 'Funcionario');
+(4, '12', '12', 12, '12@gmail.com', '12', '12', 'c20ad4d76fe97759aa27a0c99bff6710', 'Funcionario'),
+(5, 'tatiana lizeth', 'torres', 1112, 'lisstatis@gmail.cpm', 'Yopal - casanre', '3227224457', '202cb962ac59075b964b07152d234b70', 'Funcionario');
 
 -- --------------------------------------------------------
 
@@ -271,17 +271,17 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `datosformulario`
 --
 ALTER TABLE `datosformulario`
-  MODIFY `idFormulario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `idFormulario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT de la tabla `funcionario`
 --
 ALTER TABLE `funcionario`
-  MODIFY `idfuncionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idfuncionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `Id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `tbl_documentos`
 --
