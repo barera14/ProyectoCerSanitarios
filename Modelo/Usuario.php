@@ -232,10 +232,15 @@ class Usuario extends db_abstract_class //hereda metodos de conexion
 
     public function editar()
     {
-        $this->updateRow("UPDATE funcionario SET Nombres = ?, Cedula = ? WHERE idfuncionario = ?",array(
-
-            $this->Nombres,
-            $this->Cedula
+        $this->updateRow("UPDATE funcionario SET Nombre=?,Apellido=?,Cedula=?,Correo=?,Direccion=?,Celular=?,Contrasena=? WHERE idfuncionario=?",array(
+            $this->Nombre,
+            $this->Apellido,
+            $this->Cedula,
+            $this->Correo,
+            $this->Direccion,
+            $this->Celular,
+            $this->Contrasena,
+            $this->idfuncionario
         ));
         $this->Disconnect();
     }

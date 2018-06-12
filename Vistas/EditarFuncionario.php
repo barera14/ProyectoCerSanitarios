@@ -1,10 +1,10 @@
 <?php
 require "../Controlador/UsuarioController.php";
-// if( $_SESSION['DataPersona']['cargo']=='Administrador'){
+if( $_SESSION['DataPersona']['cargo']=='Administrador'){
 
-// }else{
-//    header("Location: index.php");
-// }
+ }else{
+    header("Location: index.php");
+}
 
 ?>
 <!DOCTYPE html>
@@ -112,7 +112,7 @@ require "../Controlador/UsuarioController.php";
 <?php if(!empty($_GET['respuesta'])){ ?>
     <?php if ($_GET['respuesta'] == "correcto"){ ?>
         <script>
-            alert("Registro Exitoso, el usuario ya puede iniciar sesion");
+            alert("Registro Exitoso");
             location.href="RegistroFuncionario.php";
         </script>
     <?php }else if($_GET['respuesta'] == "error"){ ?>
@@ -150,21 +150,21 @@ require "../Controlador/UsuarioController.php";
 
             <h1>Editar Funcionarios</h1>
 
-            <form action="../Controlador/UsuarioController.php?action=crear" name="formulario" method="post">
-
+            <form action="../Controlador/UsuarioController.php?action=EditarFun&id=<?php echo $_GET['id'];?>" name="formulario" method="post">
+            <?php  $DataPersona = UsuarioController::buscarIdFuncionario($_GET['id']);  ?>
                 <div class="top-row">
                     <div class="field-wrap">
                         <label class="form-mod">
                             Nombres<span class="req">*</span>
                         </label>
-                        <input type="text" name="nom_user" required autocomplete="off" />
+                        <input type="text" name="nom_user" value="<?php echo $DataPersona->getNombre(); ?>" required autocomplete="off" />
                     </div>
 
                     <div class="field-wrap">
                         <label class="form-mod">
                             Apellidos<span class="req">*</span>
                         </label>
-                        <input type="text" name="ape_user" required autocomplete="off"/>
+                        <input type="text" name="ape_user" value="<?php echo $DataPersona->getApellido(); ?>"  required autocomplete="off"/>
                     </div>
                 </div>
 
@@ -172,14 +172,14 @@ require "../Controlador/UsuarioController.php";
                     <label class="form-mod">
                         Cèdula de Ciudadanía<span class="req">*</span>
                     </label>
-                    <input type="text" name="cc_user" required autocomplete="off"/>
+                    <input type="text" name="cc_user" value="<?php echo $DataPersona->getCedula(); ?>"  required autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
                     <label class="form-mod">
                         Correo Electrònico<span class="req">*</span>
                     </label>
-                    <input type="email" name="correo_user"required autocomplete="off"/>
+                    <input type="email" value="<?php echo $DataPersona->getCorreo(); ?>"  name="correo_user"required autocomplete="off"/>
                 </div>
 
 
@@ -187,7 +187,7 @@ require "../Controlador/UsuarioController.php";
                     <label class="form-mod">
                         Direcciòn<span class="req">*</span>
                     </label>
-                    <input type="text"  name="direc_user" required autocomplete="off"/>
+                    <input type="text" value="<?php echo $DataPersona->getDireccion(); ?>"   name="direc_user" required autocomplete="off"/>
                 </div>
 
 
@@ -195,7 +195,7 @@ require "../Controlador/UsuarioController.php";
                     <label class="form-mod">
                         Celular<span class="req">*</span>
                     </label>
-                    <input type="text" name="celu_user" required autocomplete="off"/>
+                    <input type="text" value="<?php echo $DataPersona->getCelular(); ?>"  name="celu_user" required autocomplete="off"/>
                 </div>
                 <div class="field-wrap">
                     <label class="form-mod">
@@ -204,10 +204,7 @@ require "../Controlador/UsuarioController.php";
 
                     <input type="PASSWORD" name="pass_user" required autocomplete="off"/>
                 </div>
-
-
-
-                <input type="submit" value="Registrar" name="ingresar" class="button button-block"/>
+    <input type="submit" value="Editar" name="ingresar" class="button button-block"/>
 
             </form>
 

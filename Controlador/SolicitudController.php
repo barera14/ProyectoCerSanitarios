@@ -138,6 +138,9 @@ class SolicitudController
             }
             $htmlSelect .="<br/>";
             $htmlSelect .="<br/>";
+            if($valor->getEstaado()=='Aceptada'){
+            $htmlSelect .= "<a target='_blank' href='".$valor->getArchivo()."'>Descargar Certificado</a>";
+            }
             $htmlSelect .="<br/>";
             $htmlSelect .="<br/>";
            

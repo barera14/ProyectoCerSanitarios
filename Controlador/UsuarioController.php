@@ -26,6 +26,8 @@ class UsuarioController
             UsuarioController::CerrarSession();
         }else if($action=="LoginAdmin"){
             UsuarioController::LoginAdmin();
+        }else if ($action=="EditarFun"){
+            UsuarioController::EditarFuncionario();
         }
     }
 
@@ -43,7 +45,14 @@ class UsuarioController
             header("Location: ../pdf.php?respuesta=error");
         }
     }
-
+    static public function buscarIdFuncionario($id){
+        try{
+            return Usuario::buscarForId($id);
+        } catch (Exception $e) {
+            echo "Error en Solicitud controller";
+            header("Location: ../pdf.php?respuesta=error");
+        }
+    }
     static public function crear(){
         try{
             $arrayusuario = array();
@@ -66,6 +75,29 @@ class UsuarioController
         }catch (Exception $w){
             echo $w;
             header("Location: ../Vistas/RegistroFuncionario.php?respuesta=error");
+
+        }
+    }
+    static public function EditarFuncionario(){
+        try{
+   
+        
+            $ObjEspecialidad = Usuario::buscarForId($_GET['id']);
+            $ObjEspecialidad->setNombre($_POST['nom_user']);
+            $ObjEspecialidad->setApellido($_POST['ape_user']);
+            $ObjEspecialidad->setCedula($_POST['cc_user']);
+            $ObjEspecialidad->setCorreo($_POST['correo_user']);
+            $ObjEspecialidad->setDireccion($_POST['direc_user']);
+            $ObjEspecialidad->setCelular($_POST['celu_user']);
+            $Contrasenamd5 = $_POST['pass_user'];
+            $md5 = md5($Contrasenamd5);
+            $ObjEspecialidad->setContrasena($md5);
+            $ObjEspecialidad->editar();
+          
+           header("Location: ../Vistas/EditarFuncionario.php?respuesta=correcto");
+        }catch (Exception $w){
+            echo $w;
+            header("Location: ../Vistas/EditarFuncionario.php?respuesta=error");
 
         }
     }
@@ -288,7 +320,7 @@ class UsuarioController
                 $respuesta = UsuarioController::validLoginAd($Usuario, $Contrasena);
                 if (is_array($respuesta)) {
                  $_SESSION['verificar']=true;
-           
+                    var_dump($respuesta);
                  $_SESSION['DataPersona'] = $respuesta;
                 
                     echo TRUE;

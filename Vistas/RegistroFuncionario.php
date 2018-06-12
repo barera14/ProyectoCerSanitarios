@@ -2,8 +2,10 @@
 require "../Controlador/UsuarioController.php";
 if( $_SESSION['DataPersona']['cargo']=='Administrador'){
 
+}else if( $_SESSION['DataPersona']['cargo']=='Funcionario'){
+   header("Location: Solicitudes.php");
 }else{
-   header("Location: index.php");
+      header("Location: index.php");
 }
 
 ?>
